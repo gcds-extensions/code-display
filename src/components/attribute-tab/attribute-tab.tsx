@@ -100,7 +100,7 @@ export class AttributeTab {
             <th>{i18n[lang].attributes}</th>
             <th>{i18n[lang].type}</th>
             <th>{i18n[lang].defaultValue}</th>
-            <th>{i18n[lang].control}</th>
+            <th>{i18n[lang].value}</th>
           </tr>
           {this.attributeObject &&
             this.attributeObject.map(attr => {

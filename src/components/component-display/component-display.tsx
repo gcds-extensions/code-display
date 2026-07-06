@@ -254,7 +254,6 @@ export class ComponentDisplay {
         {/* Tabs */}
         {this.attributeObject || this.slotObject || this.eventObject || this.accessibility ? (
           <div id="tabs">
-            <gcds-heading tag="h4">{i18n[lang].tabsHeading}</gcds-heading>
             <div role="tablist">
               {this.attributeObject && (
                 <gcds-button

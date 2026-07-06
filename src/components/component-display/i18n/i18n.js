@@ -1,6 +1,5 @@
 const I18N = {
   en: {
-    tabsHeading: 'Component API',
     tabsAttributes: 'Attributes',
     tabsSlots: 'Slots',
     tabsEvents: 'Events',
@@ -10,7 +9,6 @@ const I18N = {
     frameworkUpdateStatus: 'The code preview for "{name}" has been updated.',
   },
   fr: {
-    tabsHeading: 'Component API (TODO FR)',
     tabsAttributes: 'Attributs',
     tabsSlots: 'Fentes',
     tabsEvents: 'Événements',

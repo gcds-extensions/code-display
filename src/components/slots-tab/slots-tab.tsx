@@ -123,7 +123,6 @@ export class SlotsTab {
     return (
       <Host role="tabpanel" tabindex="0">
         <table class="slots">
-          <caption>{i18n[lang].caption}</caption>
           <tr>
             <th>{i18n[lang].name}</th>
             <th>{i18n[lang].description}</th>

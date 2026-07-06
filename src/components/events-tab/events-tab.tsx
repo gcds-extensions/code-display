@@ -42,7 +42,6 @@ export class EventsTab {
     return (
       <Host role="tabpanel" tabindex="0">
         <table class="events">
-          <caption>{i18n[lang].caption}</caption>
           <tr>
             <th>{i18n[lang].name}</th>
             <th>{i18n[lang].description}</th>
