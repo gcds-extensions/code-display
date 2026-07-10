@@ -11,14 +11,14 @@ const I18N = {
     test: 'Test',
   },
   fr: {
-    runTest: 'Exécuter le test d'accessibilité',
-    runningTest: 'Exécution du test d'accessibilité',
+    runTest: "Exécuter le test d'accessibilité",
+    runningTest: "Exécution du test d'accessibilité",
     issues: 'problème(s) trouvé(s). Consultez le tableau ci-dessous pour plus de détails.',
     noIssues: 'Aucun problème trouvé. Consultez le tableau ci-dessous pour voir les tests réussis.',
     violationID: 'ID de la violation',
     description: 'Description',
     affected: 'Élément(s) concerné(s)',
-    summary: 'Résumé de l'échec',
+    summary: "Résumé de l'échec",
     test: 'Test',
   },
 };
