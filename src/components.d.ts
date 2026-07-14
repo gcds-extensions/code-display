@@ -13,41 +13,35 @@ export namespace Components {
     interface AccessibilityTab {
         "displayElement": Element;
         "landmarkDisplay"?: boolean;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "landmark-display"?: boolean;
     }
     interface AttributeTab {
         "attributeObject": Array<AttributesType>;
         "displayElement": Element;
     }
     interface CodeFrame {
-        /**
-          * @default false
-         */
         "accessibility"?: boolean;
-        /**
-          * @default 'html'
-         */
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
-        /**
-          * @default false
-         */
         "landmarkDisplay"?: boolean;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "landmark-display"?: boolean;
         "source": string;
     }
     interface ComponentDisplay {
-        /**
-          * @default false
-         */
         "accessibility"?: boolean;
         "attrs"?: string | Array<AttributesType>;
         "events"?: string | Array<EventType>;
-        /**
-          * @default 'html'
-         */
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
-        /**
-          * @default false
-         */
         "landmarkDisplay"?: boolean;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "landmark-display"?: boolean;
         "slots"?: string | Array<SlotType>;
     }
     interface EventsTab {
@@ -156,6 +150,10 @@ declare namespace LocalJSX {
     interface AccessibilityTab {
         "displayElement": Element;
         "landmarkDisplay"?: boolean;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "landmark-display"?: boolean;
     }
     interface AttributeTab {
         "attributeObject"?: Array<AttributesType>;
@@ -164,36 +162,26 @@ declare namespace LocalJSX {
         "onStatusUpdate"?: (event: AttributeTabCustomEvent<Object>) => void;
     }
     interface CodeFrame {
-        /**
-          * @default false
-         */
         "accessibility"?: boolean;
-        /**
-          * @default 'html'
-         */
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
-        /**
-          * @default false
-         */
         "landmarkDisplay"?: boolean;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "landmark-display"?: boolean;
         "onStatusUpdate"?: (event: CodeFrameCustomEvent<Object>) => void;
         "source"?: string;
     }
     interface ComponentDisplay {
-        /**
-          * @default false
-         */
         "accessibility"?: boolean;
         "attrs"?: string | Array<AttributesType>;
         "events"?: string | Array<EventType>;
-        /**
-          * @default 'html'
-         */
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
-        /**
-          * @default false
-         */
         "landmarkDisplay"?: boolean;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "landmark-display"?: boolean;
         "slots"?: string | Array<SlotType>;
     }
     interface EventsTab {

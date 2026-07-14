@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Element, Prop } from '@stencil/core';
+import { Component, Host, h, State, Element, Prop, Fragment } from '@stencil/core';
 import axe from 'axe-core';
 import axeLocaleFr from 'axe-core/locales/fr.json';
 
@@ -92,60 +92,78 @@ export class AccessibilityTab {
 
   renderAxeResultsTable() {
     if (this.axeResults && this.axeResults.violations.length > 0) {
+      let cellCount = 0;
       return (
-        <table class="axe-results-table">
-          <thead>
-            <tr>
-              <th>{i18n[this.lang].violationID}</th>
-              <th>{i18n[this.lang].description}</th>
-              <th>{i18n[this.lang].affected}</th>
-              <th>{i18n[this.lang].summary}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.axeResults.violations.map(violation => (
-              <tr key={violation.id}>
-                <td>{violation.id}</td>
-                <td>{violation.description}</td>
-                <td>
-                  <ul>
-                    {violation.nodes.map((node, index) => (
-                      <li key={index}>
-                        <code>{node.html}</code>
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-                <td>
-                  <ul>
-                    {violation.nodes.map((node, index) => (
-                      <li key={index}>{node.failureSummary}</li>
-                    ))}
-                  </ul>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <gcds-table
+          columns={[
+            {
+              "field": "violationID",
+              "header": i18n[this.lang].violationID,
+              "rowHeader": true
+            },
+            {
+              "field": "description",
+              "header": i18n[this.lang].description
+            },
+            {
+              "field": "affected",
+              "header": i18n[this.lang].affected,
+              "slotted": true,
+            },
+            {
+              "field": "summary",
+              "header": i18n[this.lang].summary,
+              "slotted": true,
+            }
+          ]}
+          data={this.axeResults.violations.map(violation => ({
+            violationID: violation.id,
+            description: violation.description,
+          }))}
+        >
+          {this.axeResults.violations.map(violation => (
+            <Fragment>
+              <span slot={`cell-${cellCount}-affected`}>
+                <ul>
+                  {violation.nodes.map((node, index) => (
+                    <li key={index}>
+                      <code>{node.html}</code>
+                    </li>
+                  ))}
+                </ul>
+              </span>
+              <span slot={`cell-${cellCount}-summary`}>
+                <ul>
+                  {violation.nodes.map((node, index) => (
+                    <li key={index}>{node.failureSummary}</li>
+                  ))}
+                </ul>
+              </span>
+              {(() => { cellCount++; return null; })()}
+            </Fragment>
+          ))}
+        </gcds-table>
       );
     } else if (this.axeResults) {
       return (
-        <table class="axe-results-table">
-          <thead>
-            <tr>
-              <th>{i18n[this.lang].test}</th>
-              <th>{i18n[this.lang].description}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.axeResults.passes.map(pass => (
-              <tr key={pass.id}>
-                <td>{pass.id}</td>
-                <td>{pass.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <gcds-table
+          columns={[
+            {
+              "field": "test",
+              "header": i18n[this.lang].test,
+              "rowHeader": true
+            },
+            {
+              "field": "description",
+              "header": i18n[this.lang].description
+            }
+          ]}
+          data={this.axeResults.passes.map(pass => ({
+            test: pass.id,
+            description: pass.description,
+          }))}
+        >
+        </gcds-table>
       );
     }
 

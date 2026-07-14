@@ -1,6 +1,6 @@
-import { Component, Host, h, Element, Prop, Event, EventEmitter, State } from '@stencil/core';
+import { Component, Host, h, Element, Prop, Event, EventEmitter, State, Fragment } from '@stencil/core';
 
-import { AttributesType, assignLanguage, closestElement, formatDataLabel } from '../../utils/utils';
+import { AttributesType, assignLanguage, closestElement } from '../../utils/utils';
 import i18n from './i18n/i18n';
 
 @Component({
@@ -77,6 +77,66 @@ export class AttributeTab {
     }
   }
 
+  private renderControl(attr: AttributesType, cellCount: number) {
+    let control = '';
+
+    let displayValue = this.displayElement.getAttribute(attr.name) != null ? this.displayElement.getAttribute(attr.name) : attr?.defaultValue;
+
+    // Special case for lang attribute to inherit from closest parent with lang attribute
+    if (attr.name === 'lang') {
+      displayValue = closestElement('[lang]', this.displayElement).getAttribute('lang') || displayValue;
+    }
+
+    if (attr.type === 'boolean') {
+      displayValue = displayValue === 'true' ? 'true' : 'false';
+    }
+
+    this.lastInputValue = { ...this.lastInputValue, [attr.name]: displayValue };
+
+    if (attr.control === 'select') {
+      const options = typeof attr.options === 'string' ? JSON.parse(attr.options) : attr.options;
+
+      control = (
+        <span slot={`cell-${cellCount}-value`}>
+          <gcds-select
+            label={attr.name}
+            selectId={attr.name}
+            name={attr.name}
+            value={displayValue}
+            hide-label
+            onInput={e => this.formatEventDetail(e)}
+            onFocus={e => this.onFocusStartInterval(e)}
+            onBlur={this.onBlurClearInterval}
+          >
+            {typeof options === 'object' &&
+              options.map(option => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+          </gcds-select>
+        </span>
+      );
+    } else if (attr.control === 'text') {
+      control = (
+        <span slot={`cell-${cellCount}-value`}>
+          <gcds-input
+            name={attr.name}
+            label={attr.name}
+            inputId={attr.name}
+            hide-label
+            type="text"
+            value={displayValue}
+            onInput={e => this.formatEventDetail(e)}
+            onFocus={e => this.onFocusStartInterval(e)}
+            onBlur={this.onBlurClearInterval}
+          ></gcds-input>
+        </span>
+      );
+    }
+    return control;
+  }
+
   /* ---------------------------
    * Lifecycle
    * --------------------------- */
@@ -93,69 +153,47 @@ export class AttributeTab {
   render() {
     const { lang } = this;
 
+    let cellCount = 0;
+
     return (
       <Host role="tabpanel" tabindex="0">
-        <table class="attributes">
-          <tr>
-            <th>{i18n[lang].attributes}</th>
-            <th>{i18n[lang].type}</th>
-            <th>{i18n[lang].defaultValue}</th>
-            <th>{i18n[lang].value}</th>
-          </tr>
+        <gcds-table
+          columns={[
+            {
+              "field": "attributes",
+              "header": i18n[lang].attributes,
+              "rowHeader": true,
+              "slotted": true,
+            },
+            {
+              "field": "type",
+              "header": i18n[lang].type,
+              "slotted": true,
+            },
+            {
+              "field": "defaultvalue",
+              "header": i18n[lang].defaultValue,
+              "slotted": true,
+            },
+            {
+              "field": "value",
+              "header": i18n[lang].value,
+              "slotted": true,
+            }
+          ]}
+          data={this.attributeObject &&
+            this.attributeObject.map(attr => ({
+              attributes: attr.name,
+              type: attr.type,
+              defaultValue: attr.defaultValue,
+            }))}
+        >
           {this.attributeObject &&
             this.attributeObject.map(attr => {
-              let control = '';
-
-              let displayValue = this.displayElement.getAttribute(attr.name) != null ? this.displayElement.getAttribute(attr.name) : attr?.defaultValue;
-
-              // Special case for lang attribute to inherit from closest parent with lang attribute
-              if (attr.name === 'lang') {
-                displayValue = closestElement('[lang]', this.displayElement).getAttribute('lang') || displayValue;
-              }
-
-              this.lastInputValue = { ...this.lastInputValue, [attr.name]: displayValue };
-
-              if (attr.control === 'select') {
-                const options = typeof attr.options === 'string' ? JSON.parse(attr.options) : attr.options;
-
-                control = (
-                  <gcds-select
-                    label={attr.name}
-                    selectId={attr.name}
-                    name={attr.name}
-                    value={displayValue}
-                    hide-label
-                    onInput={e => this.formatEventDetail(e)}
-                    onFocus={e => this.onFocusStartInterval(e)}
-                    onBlur={this.onBlurClearInterval}
-                  >
-                    {typeof options === 'object' &&
-                      options.map(option => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                  </gcds-select>
-                );
-              } else if (attr.control === 'text') {
-                control = (
-                  <gcds-input
-                    name={attr.name}
-                    label={attr.name}
-                    inputId={attr.name}
-                    hide-label
-                    type="text"
-                    value={displayValue}
-                    onInput={e => this.formatEventDetail(e)}
-                    onFocus={e => this.onFocusStartInterval(e)}
-                    onBlur={this.onBlurClearInterval}
-                  ></gcds-input>
-                );
-              }
-
+              const slotIndex = cellCount++;
               return (
-                <tr>
-                  <td data-label={formatDataLabel(i18n[lang].attributes, lang)}>
+                <Fragment>
+                  <span slot={`cell-${slotIndex}-attributes`}>
                     <span lang="en">{attr.name}</span>
                     {attr.required && (
                       <span
@@ -164,14 +202,16 @@ export class AttributeTab {
                       >
                         {i18n[lang].required}
                       </span>
-                    )}</td>
-                  <td data-label={formatDataLabel(i18n[lang].type, lang)}>{attr?.type ? <span lang="en">{attr.type}</span> : <gcds-sr-only tag="span">{i18n[lang].noType}</gcds-sr-only>}</td>
-                  <td data-label={formatDataLabel(i18n[lang].defaultValue, lang)}>{attr?.defaultValue ? <span lang="en">{attr.defaultValue}</span> : <gcds-sr-only>{i18n[lang].noDefaultValue}</gcds-sr-only>}</td>
-                  <td>{control}</td>
-                </tr>
+                    )}
+                  </span>
+                  <span slot={`cell-${slotIndex}-defaultvalue`}>
+                    {attr?.defaultValue ? <span lang="en">{attr.defaultValue}</span> : <gcds-sr-only>{i18n[lang].noDefaultValue}</gcds-sr-only>}
+                  </span>
+                  {this.renderControl(attr, slotIndex)}
+                </Fragment>
               );
             })}
-        </table>
+        </gcds-table>
       </Host>
     );
   }

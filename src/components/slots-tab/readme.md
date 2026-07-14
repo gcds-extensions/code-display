@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property                      | Attribute         | Description | Type         | Default     |
-| ----------------------------- | ----------------- | ----------- | ------------ | ----------- |
-| `displayElement` _(required)_ | `display-element` |             | `Element`    | `undefined` |
-| `slotHistory`                 | `slot-history`    |             | `Object`     | `undefined` |
-| `slotObject`                  | `slot-object`     |             | `SlotType[]` | `undefined` |
+| Property                      | Attribute | Description | Type         | Default     |
+| ----------------------------- | --------- | ----------- | ------------ | ----------- |
+| `displayElement` _(required)_ | --        |             | `Element`    | `undefined` |
+| `slotHistory`                 | --        |             | `Object`     | `undefined` |
+| `slotObject`                  | --        |             | `SlotType[]` | `undefined` |
 
 
 ## Events

@@ -1,11 +1,7 @@
 :host {
   display: block;
 
-  table > tr > td:first-child {
-    font: var(--gcds-label-font-mobile);
-
-    .required {
-      font-weight: var(--gcds-label-required-font-weight);
-    }
+  .required {
+    font-weight: var(--gcds-label-required-font-weight);
   }
 }

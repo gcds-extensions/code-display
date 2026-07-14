@@ -1,7 +1,7 @@
 import { Component, Host, h, Element, Prop, Event, EventEmitter, State } from '@stencil/core';
 import DOMPurify from 'dompurify';
 
-import { assignLanguage, SlotType, formatDataLabel } from '../../utils/utils';
+import { assignLanguage, SlotType } from '../../utils/utils';
 import i18n from './i18n/i18n';
 
 @Component({
@@ -12,6 +12,7 @@ import i18n from './i18n/i18n';
 export class SlotsTab {
   @Element() el: HTMLElement;
 
+  private table: HTMLGcdsTableElement;
   private valueChecker: number | null = null;
   private lastInputValue = {};
 
@@ -63,11 +64,11 @@ export class SlotsTab {
       // Check if the slot content includes the correct slot attribute
       if (name !== 'default' && !textarea.value.includes(`slot="${name}"`)) {
         this.slotErrors = { ...this.slotErrors, [name]: i18n[this.lang].slotMissingAttribute.replaceAll('{name}', name) };
+        this.keepValues();
         return;
       }
       if (sanitizedValue !== textarea.value) {
         this.slotErrors = { ...this.slotErrors, [name]: i18n[this.lang].slotSanitized };
-
         return;
       }
     }
@@ -104,6 +105,12 @@ export class SlotsTab {
     }
   };
 
+  private keepValues() {
+    this.table.querySelectorAll('gcds-textarea').forEach((textarea: HTMLGcdsTextareaElement) => {
+      textarea.value = this.slotHistory[textarea.name];
+    });
+  }
+
   /* ---------------------------
    * Lifecycle
    * --------------------------- */
@@ -113,6 +120,10 @@ export class SlotsTab {
     this.lang = assignLanguage(this.el);
   }
 
+  async componentDidUpdate() {
+    this.keepValues();
+  }
+
   /* ---------------------------
    * Render
    * --------------------------- */
@@ -120,42 +131,57 @@ export class SlotsTab {
   render() {
     const { lang } = this;
 
+    let cellCount = 0;
+
     return (
       <Host role="tabpanel" tabindex="0">
-        <table class="slots">
-          <tr>
-            <th>{i18n[lang].name}</th>
-            <th>{i18n[lang].description}</th>
-            <th>{i18n[lang].control}</th>
-          </tr>
-
+        <gcds-table
+          ref={(el: HTMLGcdsTableElement) => (this.table = el as HTMLGcdsTableElement)}
+          columns={[
+            {
+              "field": "name",
+              "header": i18n[lang].name,
+              "rowHeader": true
+            },
+            {
+              "field": "description",
+              "header": i18n[lang].description
+            },
+            {
+              "field": "value",
+              "header": i18n[lang].value,
+              "slotted": true,
+            }
+          ]}
+          data={this.slotObject.map(slot => ({
+            name: slot.name,
+            description: slot.description,
+          }))}
+        >
           {this.slotObject.map(slot => {
             this.lastInputValue = { ...this.lastInputValue, [slot.name]: this.slotHistory[slot.name] };
             const control = (
-              <gcds-textarea
-                label={slot.name}
-                textareaId={slot.name}
-                name={slot.name}
-                hideLabel
-                value={this.slotHistory[slot.name]}
-                error-message={this.slotErrors[slot.name]}
-                validate-on="other"
-                onChange={e => this.emitSlotEvent(e)}
-                onFocus={e => this.onFocusStartInterval(e)}
-                onBlur={this.onBlurClearInterval}
-                lang={this.lang}
-              ></gcds-textarea>
+              <span slot={`cell-${cellCount}-value`} class="slot-textarea">
+                <gcds-textarea
+                  label={slot.name}
+                  textareaId={slot.name}
+                  name={slot.name}
+                  hideLabel
+                  value={this.slotHistory[slot.name]}
+                  error-message={this.slotErrors[slot.name]}
+                  validate-on="other"
+                  onChange={(e: any) => this.emitSlotEvent(e)}
+                  onFocus={(e: any) => this.onFocusStartInterval(e)}
+                  onBlur={this.onBlurClearInterval}
+                  lang={this.lang}
+                ></gcds-textarea>
+              </span>
             );
-            return (
-              <tr>
-                <td data-label={formatDataLabel(i18n[lang].name, lang)}>{slot.name}</td>
-                <td data-label={formatDataLabel(i18n[lang].description, lang)}>{slot.description}</td>
-                <td>{control}</td>
-              </tr>
-            );
+            cellCount++;
+            return control;
           })}
-        </table>
-      </Host>
+        </gcds-table>
+      </Host >
     );
   }
 }

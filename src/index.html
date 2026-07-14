@@ -25,9 +25,9 @@
 
       <gcds-heading tag="h3">Only code display</gcds-heading>
 
-      <component-display class="mt-300" lang="fr" framework="react">
+      <!-- <component-display class="mt-300" framework="react" accessibility id="button-display" lang="en">
         <gcds-button button-role="danger">Danger</gcds-button>
-      </component-display>
+      </component-display> -->
 
       <gcds-heading tag="h3">With tabs</gcds-heading>
 
@@ -55,7 +55,7 @@
         </gcds-header>
       </component-display>
 
-      <gcds-grid columns="minmax(0, 1fr)" columns-desktop="320px minmax(0, 1fr)" tag="div" container="xl" centered class="xl:px-0 sm:px-600 px-225 general-layout">
+      <!-- <gcds-grid columns="minmax(0, 1fr)" columns-desktop="320px minmax(0, 1fr)" tag="div" container="xl" centered class="xl:px-0 sm:px-600 px-225 general-layout">
         <div>This is a placeholder, testing how a zoom out view might work since this is how our docs site is configured</div>
         <div>
           <gcds-heading tag="h2">Top-nav</gcds-heading>
@@ -87,7 +87,7 @@
             </gcds-top-nav>
           </component-display>
         </div>
-      </gcds-grid>
+      </gcds-grid> -->
 
       <script>
         const headerDisplay = document.getElementById('header-display');
@@ -238,7 +238,7 @@
             },
             {
               name: 'max',
-              control: 'select',
+              control: 'text',
               type: 'number | string',
               options: [],
             },
@@ -249,7 +249,7 @@
             },
             {
               name: 'min',
-              control: 'select',
+              control: 'text',
               type: 'number | string',
               options: [],
             },
@@ -289,13 +289,13 @@
             },
             {
               name: 'step',
-              control: 'select',
+              control: 'text',
               type: '"any" | number',
               options: ['any'],
             },
             {
               name: 'suggestions',
-              control: 'select',
+              control: 'text',
               type: 'SuggestionOption[] | string',
               options: [],
             },
@@ -315,7 +315,7 @@
             },
             {
               name: 'validator',
-              control: 'select',
+              control: 'text',
               type: '(string | ValidatorEntry | Validator<string>)[]',
               options: [],
             },

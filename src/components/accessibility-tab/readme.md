@@ -9,7 +9,7 @@
 
 | Property                      | Attribute          | Description | Type      | Default     |
 | ----------------------------- | ------------------ | ----------- | --------- | ----------- |
-| `displayElement` _(required)_ | `display-element`  |             | `Element` | `undefined` |
+| `displayElement` _(required)_ | --                 |             | `Element` | `undefined` |
 | `landmarkDisplay`             | `landmark-display` |             | `boolean` | `undefined` |
 
 

@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property      | Attribute      | Description | Type          | Default     |
-| ------------- | -------------- | ----------- | ------------- | ----------- |
-| `eventObject` | `event-object` |             | `EventType[]` | `undefined` |
+| Property      | Attribute | Description | Type          | Default     |
+| ------------- | --------- | ----------- | ------------- | ----------- |
+| `eventObject` | --        |             | `EventType[]` | `undefined` |
 
 
 ## Dependencies

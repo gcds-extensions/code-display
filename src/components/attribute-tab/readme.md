@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property                      | Attribute          | Description | Type               | Default     |
-| ----------------------------- | ------------------ | ----------- | ------------------ | ----------- |
-| `attributeObject`             | `attribute-object` |             | `AttributesType[]` | `undefined` |
-| `displayElement` _(required)_ | `display-element`  |             | `Element`          | `undefined` |
+| Property                      | Attribute | Description | Type               | Default     |
+| ----------------------------- | --------- | ----------- | ------------------ | ----------- |
+| `attributeObject`             | --        |             | `AttributesType[]` | `undefined` |
+| `displayElement` _(required)_ | --        |             | `Element`          | `undefined` |
 
 
 ## Events
