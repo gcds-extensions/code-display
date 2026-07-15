@@ -27,10 +27,25 @@ export class ComponentDisplay {
   @Prop() attrs?: string | Array<AttributesType>;
   @Watch('attrs')
   validateAttrs() {
+    let tempAttrs = [];
     if (typeof this.attrs == 'object') {
-      this.attributeObject = this.attrs;
+      tempAttrs = this.attrs.sort((a, b) => {
+        if (!!a.required !== !!b.required) {
+          return a.required ? -1 : 1;
+        }
+
+        return a.name.localeCompare(b.name);
+      });
+      this.attributeObject = tempAttrs;
     } else if (typeof this.attrs == 'string') {
-      this.attributeObject = JSON.parse(this.attrs);
+      this.attributeObject = JSON.parse(this.attrs).sort((a, b) => {
+        if (!!a.required !== !!b.required) {
+          return a.required ? -1 : 1;
+        }
+
+        return a.name.localeCompare(b.name);
+      });
+      this.attributeObject = tempAttrs;
     }
   }
 

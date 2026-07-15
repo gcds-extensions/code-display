@@ -47,11 +47,11 @@ export class SlotsTab {
    * Sanitize and emit slot change event
    */
   private emitSlotEvent(e) {
+    this.lastInputValue = { ...this.lastInputValue, [e.target.name]: e.target.value };
     const sanitizedValue = DOMPurify.sanitize(e.target.value, {
       CUSTOM_ELEMENT_HANDLING: {
         tagNameCheck: /^gcds-/,
-        attributeNameCheck: /.*/,
-        allowCustomizedBuiltInElements: false,
+        attributeNameCheck: () => true,
       },
       ADD_ATTR: ['slot'],
     });
@@ -69,6 +69,7 @@ export class SlotsTab {
       }
       if (sanitizedValue !== textarea.value) {
         this.slotErrors = { ...this.slotErrors, [name]: i18n[this.lang].slotSanitized };
+        this.keepValues();
         return;
       }
     }
@@ -107,7 +108,7 @@ export class SlotsTab {
 
   private keepValues() {
     this.table.querySelectorAll('gcds-textarea').forEach((textarea: HTMLGcdsTextareaElement) => {
-      textarea.value = this.slotHistory[textarea.name];
+      textarea.value = this.lastInputValue[textarea.name];
     });
   }
 
@@ -118,6 +119,7 @@ export class SlotsTab {
   async componentWillLoad() {
     // Define lang attribute
     this.lang = assignLanguage(this.el);
+    this.lastInputValue = { ...this.slotHistory };
   }
 
   async componentDidUpdate() {
@@ -159,7 +161,6 @@ export class SlotsTab {
           }))}
         >
           {this.slotObject.map(slot => {
-            this.lastInputValue = { ...this.lastInputValue, [slot.name]: this.slotHistory[slot.name] };
             const control = (
               <span slot={`cell-${cellCount}-value`} class="slot-textarea">
                 <gcds-textarea
@@ -167,7 +168,7 @@ export class SlotsTab {
                   textareaId={slot.name}
                   name={slot.name}
                   hideLabel
-                  value={this.slotHistory[slot.name]}
+                  value={this.lastInputValue[slot.name]}
                   error-message={this.slotErrors[slot.name]}
                   validate-on="other"
                   onChange={(e: any) => this.emitSlotEvent(e)}
