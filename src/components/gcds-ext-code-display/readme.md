@@ -30,12 +30,12 @@
 ### Graph
 ```mermaid
 graph TD;
-  component-display --> code-frame
-  component-display --> attribute-tab
-  component-display --> slots-tab
-  component-display --> events-tab
-  component-display --> accessibility-tab
-  style component-display fill:#f9f,stroke:#333,stroke-width:4px
+  gcds-ext-code-display --> code-frame
+  gcds-ext-code-display --> attribute-tab
+  gcds-ext-code-display --> slots-tab
+  gcds-ext-code-display --> events-tab
+  gcds-ext-code-display --> accessibility-tab
+  style gcds-ext-code-display fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

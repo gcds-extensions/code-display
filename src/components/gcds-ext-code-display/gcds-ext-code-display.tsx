@@ -4,11 +4,11 @@ import { assignLanguage, removeUnwantedAttributes, AttributesType, SlotType, Eve
 import i18n from './i18n/i18n';
 
 @Component({
-  tag: 'component-display',
-  styleUrls: ['component-display.css'],
+  tag: 'gcds-ext-code-display',
+  styleUrls: ['gcds-ext-code-display.css'],
   shadow: true,
 })
-export class ComponentDisplay {
+export class GcdsExtCodeDisplay {
   @Element() el: HTMLElement;
 
   private displayElement?: Element;

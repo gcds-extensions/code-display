@@ -32,7 +32,10 @@ export namespace Components {
         "landmark-display"?: boolean;
         "source": string;
     }
-    interface ComponentDisplay {
+    interface EventsTab {
+        "eventObject": Array<EventType>;
+    }
+    interface GcdsExtCodeDisplay {
         "accessibility"?: boolean;
         "attrs"?: string | Array<AttributesType>;
         "events"?: string | Array<EventType>;
@@ -43,9 +46,6 @@ export namespace Components {
          */
         "landmark-display"?: boolean;
         "slots"?: string | Array<SlotType>;
-    }
-    interface EventsTab {
-        "eventObject": Array<EventType>;
     }
     interface SlotsTab {
         "displayElement": Element;
@@ -107,17 +107,17 @@ declare global {
         prototype: HTMLCodeFrameElement;
         new (): HTMLCodeFrameElement;
     };
-    interface HTMLComponentDisplayElement extends Components.ComponentDisplay, HTMLStencilElement {
-    }
-    var HTMLComponentDisplayElement: {
-        prototype: HTMLComponentDisplayElement;
-        new (): HTMLComponentDisplayElement;
-    };
     interface HTMLEventsTabElement extends Components.EventsTab, HTMLStencilElement {
     }
     var HTMLEventsTabElement: {
         prototype: HTMLEventsTabElement;
         new (): HTMLEventsTabElement;
+    };
+    interface HTMLGcdsExtCodeDisplayElement extends Components.GcdsExtCodeDisplay, HTMLStencilElement {
+    }
+    var HTMLGcdsExtCodeDisplayElement: {
+        prototype: HTMLGcdsExtCodeDisplayElement;
+        new (): HTMLGcdsExtCodeDisplayElement;
     };
     interface HTMLSlotsTabElementEventMap {
         "slotValueChange": Object;
@@ -141,8 +141,8 @@ declare global {
         "accessibility-tab": HTMLAccessibilityTabElement;
         "attribute-tab": HTMLAttributeTabElement;
         "code-frame": HTMLCodeFrameElement;
-        "component-display": HTMLComponentDisplayElement;
         "events-tab": HTMLEventsTabElement;
+        "gcds-ext-code-display": HTMLGcdsExtCodeDisplayElement;
         "slots-tab": HTMLSlotsTabElement;
     }
 }
@@ -172,7 +172,10 @@ declare namespace LocalJSX {
         "onStatusUpdate"?: (event: CodeFrameCustomEvent<Object>) => void;
         "source"?: string;
     }
-    interface ComponentDisplay {
+    interface EventsTab {
+        "eventObject"?: Array<EventType>;
+    }
+    interface GcdsExtCodeDisplay {
         "accessibility"?: boolean;
         "attrs"?: string | Array<AttributesType>;
         "events"?: string | Array<EventType>;
@@ -183,9 +186,6 @@ declare namespace LocalJSX {
          */
         "landmark-display"?: boolean;
         "slots"?: string | Array<SlotType>;
-    }
-    interface EventsTab {
-        "eventObject"?: Array<EventType>;
     }
     interface SlotsTab {
         "displayElement": Element;
@@ -198,8 +198,8 @@ declare namespace LocalJSX {
         "accessibility-tab": AccessibilityTab;
         "attribute-tab": AttributeTab;
         "code-frame": CodeFrame;
-        "component-display": ComponentDisplay;
         "events-tab": EventsTab;
+        "gcds-ext-code-display": GcdsExtCodeDisplay;
         "slots-tab": SlotsTab;
     }
 }
@@ -210,8 +210,8 @@ declare module "@stencil/core" {
             "accessibility-tab": LocalJSX.AccessibilityTab & JSXBase.HTMLAttributes<HTMLAccessibilityTabElement>;
             "attribute-tab": LocalJSX.AttributeTab & JSXBase.HTMLAttributes<HTMLAttributeTabElement>;
             "code-frame": LocalJSX.CodeFrame & JSXBase.HTMLAttributes<HTMLCodeFrameElement>;
-            "component-display": LocalJSX.ComponentDisplay & JSXBase.HTMLAttributes<HTMLComponentDisplayElement>;
             "events-tab": LocalJSX.EventsTab & JSXBase.HTMLAttributes<HTMLEventsTabElement>;
+            "gcds-ext-code-display": LocalJSX.GcdsExtCodeDisplay & JSXBase.HTMLAttributes<HTMLGcdsExtCodeDisplayElement>;
             "slots-tab": LocalJSX.SlotsTab & JSXBase.HTMLAttributes<HTMLSlotsTabElement>;
         }
     }

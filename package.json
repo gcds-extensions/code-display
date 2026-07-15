@@ -1,5 +1,5 @@
 {
-  "name": "component-display",
+  "name": "@gcds-extensions/code-display",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
@@ -7,11 +7,11 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/component-display/component-display.esm.js",
+  "unpkg": "dist/gcds-ext-code-display/gcds-ext-code-display.esm.js",
   "exports": {
     ".": {
-      "import": "./dist/component-display/component-display.esm.js",
-      "require": "./dist/component-display/component-display.cjs.js"
+      "import": "./dist/gcds-ext-code-display/gcds-ext-code-display.esm.js",
+      "require": "./dist/gcds-ext-code-display/gcds-ext-code-display.cjs.js"
     },
     "./loader": {
       "import": "./loader/index.js",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethanWallace/component-display.git"
+    "url": "https://github.com/gcds-extensions/code-display.git"
   },
   "files": [
     "dist/",

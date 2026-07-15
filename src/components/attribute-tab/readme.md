@@ -25,12 +25,12 @@
 
 ### Used by
 
- - [component-display](../component-display)
+ - [gcds-ext-code-display](../gcds-ext-code-display)
 
 ### Graph
 ```mermaid
 graph TD;
-  component-display --> attribute-tab
+  gcds-ext-code-display --> attribute-tab
   style attribute-tab fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
