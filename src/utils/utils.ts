@@ -17,7 +17,7 @@ export const assignLanguage = (el: HTMLElement) => {
 };
 
 // Allows use of closest() function across shadow boundaries
-export const closestElement = (selector, el) => {
+export const closestElement = (selector: string, el) => {
   if (el) {
     return (el && el != document && typeof window != 'undefined' && el != window && el.closest(selector)) || closestElement(selector, el.getRootNode().host);
   }
