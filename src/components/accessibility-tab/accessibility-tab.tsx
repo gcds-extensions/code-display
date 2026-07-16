@@ -41,7 +41,7 @@ export class AccessibilityTab {
 
     try {
       const container = this.landmarkDisplay
-        ? closestElement('component-display', this.el).shadowRoot.querySelector('code-frame').shadowRoot.querySelector('iframe').contentWindow.document.body
+        ? closestElement('gcds-ext-code-display', this.el).shadowRoot.querySelector('code-frame').shadowRoot.querySelector('iframe').contentWindow.document.body
         : this.el.querySelector('#test-container');
 
       if (!this.landmarkDisplay) {
@@ -51,7 +51,7 @@ export class AccessibilityTab {
       setTimeout(async () => {
         if (this.lang === 'fr') {
           if (this.landmarkDisplay) {
-            closestElement('component-display', this.el)
+            closestElement('gcds-ext-code-display', this.el)
               .shadowRoot.querySelector('code-frame')
               .shadowRoot.querySelector('iframe')
               .contentWindow!.axe.configure({ locale: axeLocaleFr });
@@ -64,7 +64,7 @@ export class AccessibilityTab {
 
         // Test on component inside iframe
         if (this.landmarkDisplay) {
-          this.axeResults = await closestElement('component-display', this.el)
+          this.axeResults = await closestElement('gcds-ext-code-display', this.el)
             .shadowRoot.querySelector('code-frame')
             .shadowRoot.querySelector('iframe')
             .contentWindow!.axe.run(container);

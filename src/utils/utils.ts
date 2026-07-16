@@ -26,8 +26,13 @@ export const closestElement = (selector, el) => {
 };
 
 // Removes unwanted attributes from display element
-export const removeUnwantedAttributes = html => {
-  const regex = /\s*(aria-[a-z-]+|class|(?<!-)\brole\b)="[^"]*"/g;
+export const removeUnwantedAttributes = (html: string) => {
+  const regex = /\s*(aria-[a-z-]+|(?<!-)\brole\b)="[^"]*"/g;
+  html = html.replace(/\sclass="([^"]*)"/g, (_, classList) => {
+    const classes = classList.split(/\s+/).filter(c => c && c !== 'hydrated');
+
+    return classes.length ? ` class="${classes.join(' ')}"` : '';
+  });
   return html.replace(regex, '');
 };
 
