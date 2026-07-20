@@ -48,7 +48,14 @@ export class SlotsTab {
    */
   private emitSlotEvent(e) {
     this.lastInputValue = { ...this.lastInputValue, [e.target.name]: e.target.value };
-    const sanitizedValue = DOMPurify.sanitize(e.target.value, {
+
+    // DOMPurify remopved both name and id attributes
+    // This preserves them by adding data-save- for sanitization
+    const html = e.target.value.replace(/\b(name|id)=(["'])(.*?)\2/g, (_, attr, quote, value) =>
+      `data-save-${attr}=${quote}${value}${quote}`
+    );
+
+    let sanitizedValue = DOMPurify.sanitize(html, {
       CUSTOM_ELEMENT_HANDLING: {
         tagNameCheck: /^gcds-/,
         attributeNameCheck: () => true,
@@ -56,13 +63,18 @@ export class SlotsTab {
       ADD_ATTR: ['slot'],
     });
 
+    // convert data-save- attributes back to original names
+    sanitizedValue = sanitizedValue.replace(/\bdata-save-(name|id)=(["'])(.*?)\2/g, (_, attr, quote, value) =>
+      `${attr}=${quote}${value}${quote}`
+    );
+
     const textarea = e.target as HTMLGcdsTextareaElement;
     const name = textarea.name;
 
     // Prevent emitting invalid slot content for slots
-    if (textarea.value.trim() !== '') {
+    if (textarea.value?.trim() !== '') {
       // Check if the slot content includes the correct slot attribute
-      if (name !== 'default' && !textarea.value.includes(`slot="${name}"`)) {
+      if (name !== 'default' && !textarea.value?.includes(`slot="${name}"`)) {
         this.slotErrors = { ...this.slotErrors, [name]: i18n[this.lang].slotMissingAttribute.replaceAll('{name}', name) };
         this.keepValues();
         return;
