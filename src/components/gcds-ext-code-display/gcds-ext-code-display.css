@@ -43,7 +43,7 @@
           &::part(button) {
             font-weight: var(--gcds-font-weights-bold);
             text-decoration-color: transparent;
-            padding-block: var(--gcds-spacing-200);
+            /* padding-block: var(--gcds-spacing-200); */
           }
 
           &:not(:focus)::part(button) {

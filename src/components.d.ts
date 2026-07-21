@@ -5,13 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Element } from "@stencil/core";
 import { AttributesType, EventType, SlotType } from "./utils/utils";
-export { Element } from "@stencil/core";
+import { Element } from "@stencil/core";
 export { AttributesType, EventType, SlotType } from "./utils/utils";
+export { Element } from "@stencil/core";
 export namespace Components {
     interface AccessibilityTab {
-        "displayElement": Element;
         "landmarkDisplay"?: boolean;
         /**
          * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
@@ -148,7 +147,6 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AccessibilityTab {
-        "displayElement": Element;
         "landmarkDisplay"?: boolean;
         /**
          * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.

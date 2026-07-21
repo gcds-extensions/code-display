@@ -16,7 +16,6 @@ export class AccessibilityTab {
   /* ---------------------------
    * Props
    * --------------------------- */
-  @Prop() displayElement!: Element;
   @Prop() landmarkDisplay?: boolean;
 
   /* ---------------------------
@@ -45,7 +44,7 @@ export class AccessibilityTab {
         : this.el.querySelector('#test-container');
 
       if (!this.landmarkDisplay) {
-        container.innerHTML = this.displayElement.outerHTML;
+        container.innerHTML = closestElement('gcds-ext-code-display', this.el).children[0].outerHTML;
       }
 
       setTimeout(async () => {

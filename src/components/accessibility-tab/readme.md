@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property                      | Attribute          | Description | Type      | Default     |
-| ----------------------------- | ------------------ | ----------- | --------- | ----------- |
-| `displayElement` _(required)_ | --                 |             | `Element` | `undefined` |
-| `landmarkDisplay`             | `landmark-display` |             | `boolean` | `undefined` |
+| Property          | Attribute          | Description | Type      | Default     |
+| ----------------- | ------------------ | ----------- | --------- | ----------- |
+| `landmarkDisplay` | `landmark-display` |             | `boolean` | `undefined` |
 
 
 ## Dependencies

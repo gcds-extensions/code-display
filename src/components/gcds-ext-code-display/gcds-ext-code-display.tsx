@@ -13,9 +13,11 @@ export class GcdsExtCodeDisplay {
 
   private displayElement?: Element;
   private slotHistory: object = [];
-  private attributeObject;
-  private slotObject;
-  private eventObject;
+  private attributeObject: any[] | undefined;
+  private slotObject: any[] | undefined;
+  private eventObject: EventType[] | undefined;
+
+  private template: HTMLTemplateElement | undefined;
 
   /* ---------------------------
    * Props + validation
@@ -27,7 +29,7 @@ export class GcdsExtCodeDisplay {
   @Prop() attrs?: string | Array<AttributesType>;
   @Watch('attrs')
   validateAttrs() {
-    let tempAttrs = [];
+    let tempAttrs: any[] | undefined = [];
     if (typeof this.attrs == 'object') {
       tempAttrs = this.attrs.sort((a, b) => {
         if (!!a.required !== !!b.required) {
@@ -115,7 +117,8 @@ export class GcdsExtCodeDisplay {
   @Listen('attributeChange', { target: 'document' })
   attributeChangeListener(e) {
     if (e.target === this.el) {
-      this.displayElement.setAttribute(e.detail.name, e.detail.value);
+      this.template.children[0].setAttribute(e.detail.name, e.detail.value);
+      this.updateLiveElement();
       this.updateCodePreview();
       this.updateStatus('attribute', e.detail.name);
     }
@@ -166,6 +169,8 @@ export class GcdsExtCodeDisplay {
     // Define lang attribute
     this.lang = assignLanguage(this.el);
     this.displayElement = this.el.children[0];
+    this.template = document.createElement('template');
+    this.template.appendChild(this.displayElement.cloneNode(true));
 
     this.validateAttrs();
     this.validateSlots();
@@ -209,15 +214,24 @@ export class GcdsExtCodeDisplay {
 
   // Add slot content to the component display
   private renderSlotContent() {
-    this.displayElement.innerHTML = '';
+    this.template.children[0].replaceChildren();
 
     Object.values(this.slotHistory).forEach(content => {
-      this.displayElement.innerHTML += content;
+      this.template.children[0].insertAdjacentHTML('beforeend', content);
     });
+
+    this.updateLiveElement();
   }
 
+  // Update the code preview
   private updateCodePreview() {
     this.codeSource = removeUnwantedAttributes(this.el.innerHTML);
+  }
+
+  // Updates the live element by inserting new one from template
+  private updateLiveElement() {
+    this.el.replaceChildren();
+    this.el.appendChild(this.template.children[0].cloneNode(true));
   }
 
   private setDisplay(tab: typeof this.display) {
@@ -310,7 +324,6 @@ export class GcdsExtCodeDisplay {
 
             {this.accessibility && (
               <accessibility-tab
-                displayElement={this.displayElement}
                 class={`tabs--accessibility${this.display != 'a11y' ? ' hidden' : ''}`}
                 landmarkDisplay={this.landmarkDisplay}
                 lang={this.lang}
