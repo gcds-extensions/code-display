@@ -32,7 +32,7 @@ export namespace Components {
         "source": string;
     }
     interface EventsTab {
-        "eventObject": Array<EventType>;
+        "eventObject": Array<EventType> | undefined;
     }
     interface GcdsExtCodeDisplay {
         "accessibility"?: boolean;
@@ -48,8 +48,8 @@ export namespace Components {
     }
     interface SlotsTab {
         "displayElement": Element;
-        "slotHistory": Object;
-        "slotObject": Array<SlotType>;
+        "slotHistory": Object | undefined;
+        "slotObject": Array<SlotType> | undefined;
     }
 }
 export interface AttributeTabCustomEvent<T> extends CustomEvent<T> {
@@ -171,7 +171,7 @@ declare namespace LocalJSX {
         "source"?: string;
     }
     interface EventsTab {
-        "eventObject"?: Array<EventType>;
+        "eventObject"?: Array<EventType> | undefined;
     }
     interface GcdsExtCodeDisplay {
         "accessibility"?: boolean;
@@ -189,8 +189,8 @@ declare namespace LocalJSX {
         "displayElement": Element;
         "onSlotValueChange"?: (event: SlotsTabCustomEvent<Object>) => void;
         "onStatusUpdate"?: (event: SlotsTabCustomEvent<Object>) => void;
-        "slotHistory"?: Object;
-        "slotObject"?: Array<SlotType>;
+        "slotHistory"?: Object | undefined;
+        "slotObject"?: Array<SlotType> | undefined;
     }
     interface IntrinsicElements {
         "accessibility-tab": AccessibilityTab;

@@ -11,8 +11,8 @@ import i18n from './i18n/i18n';
 export class AttributeTab {
   @Element() el: HTMLElement;
 
-  private valueChecker: number | null = null;
-  private lastInputValue = {};
+  private valueChecker: number | undefined;
+  private lastInputValue: { [key: string]: any } = {};
 
   /* ---------------------------
    * Props
@@ -33,7 +33,7 @@ export class AttributeTab {
    * --------------------------- */
 
   @State() lang: string = 'en';
-  @State() lastInputTimestamp = [];
+  @State() lastInputTimestamp: { [key: string]: number } = {};
 
   /* ---------------------------
    * Helpers
@@ -109,7 +109,7 @@ export class AttributeTab {
             onBlur={this.onBlurClearInterval}
           >
             {typeof options === 'object' &&
-              options.map(option => (
+              options.map((option: string) => (
                 <option key={option} value={option}>
                   {option}
                 </option>

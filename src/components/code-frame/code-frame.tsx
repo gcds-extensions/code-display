@@ -75,7 +75,7 @@ export class CodeFrame {
 
   @Watch('framework')
   async onFrameworkChange() {
-    this.activeFormat = this.framework;
+    this.activeFormat = this.framework ?? 'html';
     await this.updateDisplayedCode();
   }
 
@@ -89,7 +89,7 @@ export class CodeFrame {
 
     this.copyLabel = i18n[this.lang].copyLabel;
 
-    this.activeFormat = this.framework;
+    this.activeFormat = this.framework ?? 'html';
   }
 
   componentDidLoad() {
@@ -100,7 +100,7 @@ export class CodeFrame {
 
       this.landmarkIframe.onload = () => {
         const intervalId = setInterval(() => {
-          const hydratedComponent = this.landmarkIframe.contentDocument.body.querySelector('.hydrated');
+          const hydratedComponent = this.landmarkIframe?.contentDocument?.body.querySelector('.hydrated');
 
           if (hydratedComponent) {
             clearInterval(intervalId);
@@ -247,7 +247,13 @@ export class CodeFrame {
       <section class="code-frame" aria-label={i18n[lang].componentPreview}>
         {/* Code actions bar: Format selection and toggle visibility */}
         <div class="code-actions-bar">
-          <gcds-select selectId="code-format" label={i18n[lang].selectEnvironment} hide-label name="select" value={this.activeFormat} onChange={e => this.onFormatChange(e)}>
+          <gcds-select
+            selectId="code-format"
+            label={i18n[lang].selectEnvironment}
+            hide-label name="select"
+            value={this.activeFormat}
+            onChange={e => this.onFormatChange(e)}
+          >
             <option value="html">HTML</option>
             <option value="react">React</option>
             <option value="vue">Vue</option>

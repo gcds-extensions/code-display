@@ -12,17 +12,17 @@ import i18n from './i18n/i18n';
 export class SlotsTab {
   @Element() el: HTMLElement;
 
-  private table: HTMLGcdsTableElement;
-  private valueChecker: number | null = null;
-  private lastInputValue = {};
+  private table: HTMLGcdsTableElement | undefined;
+  private valueChecker: number | undefined;
+  private lastInputValue: { [key: string]: string } = {};
 
   /* ---------------------------
    * Props
    * --------------------------- */
 
-  @Prop() slotObject: Array<SlotType>;
+  @Prop() slotObject: Array<SlotType> | undefined;
   @Prop() displayElement!: Element;
-  @Prop() slotHistory: Object;
+  @Prop() slotHistory: Object | undefined;
 
   /* ---------------------------
    * Events
@@ -119,7 +119,7 @@ export class SlotsTab {
   };
 
   private keepValues() {
-    this.table.querySelectorAll('gcds-textarea').forEach((textarea: HTMLGcdsTextareaElement) => {
+    this.table?.querySelectorAll('gcds-textarea').forEach((textarea: HTMLGcdsTextareaElement) => {
       textarea.value = this.lastInputValue[textarea.name];
     });
   }
@@ -131,7 +131,7 @@ export class SlotsTab {
   async componentWillLoad() {
     // Define lang attribute
     this.lang = assignLanguage(this.el);
-    this.lastInputValue = { ...this.slotHistory };
+    this.lastInputValue = { ...(this.slotHistory as Record<string, string> | undefined) };
   }
 
   async componentDidUpdate() {
@@ -167,12 +167,12 @@ export class SlotsTab {
               "slotted": true,
             }
           ]}
-          data={this.slotObject.map(slot => ({
+          data={this.slotObject?.map(slot => ({
             name: slot.name,
             description: slot.description,
           }))}
         >
-          {this.slotObject.map(slot => {
+          {this.slotObject?.map(slot => {
             const control = (
               <span slot={`cell-${cellCount}-value`} class="slot-textarea">
                 <gcds-textarea

@@ -15,7 +15,7 @@ export class EventsTab {
    * Props
    * --------------------------- */
 
-  @Prop() eventObject: Array<EventType>;
+  @Prop() eventObject: Array<EventType> | undefined;
 
   /* ---------------------------
    * State
@@ -57,7 +57,7 @@ export class EventsTab {
               "header": i18n[lang].details,
             }
           ]}
-          data={this.eventObject.map(event => ({
+          data={this.eventObject?.map(event => ({
             name: event.name,
             description: event.description,
             details: event.details,

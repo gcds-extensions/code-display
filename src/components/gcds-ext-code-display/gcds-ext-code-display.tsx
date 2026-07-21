@@ -12,7 +12,7 @@ export class GcdsExtCodeDisplay {
   @Element() el: HTMLElement;
 
   private displayElement?: Element;
-  private slotHistory: object = [];
+  private slotHistory: Record<string, string> = {};
   private attributeObject: any[] | undefined;
   private slotObject: any[] | undefined;
   private eventObject: EventType[] | undefined;
@@ -65,9 +65,9 @@ export class GcdsExtCodeDisplay {
 
     this.slotObject?.forEach(slot => {
       if (slot.name === 'default') {
-        this.slotHistory[slot.name] = this.displayElement.innerHTML;
+        this.slotHistory[slot.name] = this.displayElement?.innerHTML ?? '';
       } else {
-        const el = this.displayElement.querySelector(`[slot="${slot.name}"]`) as HTMLElement;
+        const el = this.displayElement?.querySelector(`[slot="${slot.name}"]`) as HTMLElement;
 
         this.slotHistory[slot.name] = el ? removeUnwantedAttributes(el.outerHTML) : '';
       }
@@ -117,7 +117,7 @@ export class GcdsExtCodeDisplay {
   @Listen('attributeChange', { target: 'document' })
   attributeChangeListener(e) {
     if (e.target === this.el) {
-      this.template.children[0].setAttribute(e.detail.name, e.detail.value);
+      this.template?.children[0].setAttribute(e.detail.name, e.detail.value);
       this.updateLiveElement();
       this.updateCodePreview();
       this.updateStatus('attribute', e.detail.name);
@@ -143,21 +143,21 @@ export class GcdsExtCodeDisplay {
 
   @Listen('keydown', { target: 'document' })
   async keyDownListener(e) {
-    if (this.el.contains(document.activeElement)) {
-      if (this.el.shadowRoot.activeElement.getAttribute('role') === 'presentation' && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
-        e.preventDefault();
-        const buttons = Array.from(this.el.shadowRoot.querySelectorAll('div[role="tablist"] gcds-button'));
-        const currentIndex = buttons.findIndex(button => this.el.shadowRoot.activeElement === button);
-        let newIndex;
+    const activeElement = this.el.shadowRoot?.activeElement;
 
-        if (e.key === 'ArrowRight') {
-          newIndex = (currentIndex + 1) % buttons.length;
-        } else if (e.key === 'ArrowLeft') {
-          newIndex = (currentIndex - 1 + buttons.length) % buttons.length;
-        }
+    if (this.el.contains(document.activeElement) && activeElement?.getAttribute('role') === 'presentation' && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+      e.preventDefault();
+      const buttons = Array.from(this.el.shadowRoot?.querySelectorAll('div[role="tablist"] gcds-button') ?? []);
+      const currentIndex = buttons.findIndex(button => activeElement === button);
+      let newIndex;
 
-        buttons[newIndex].shadowRoot.querySelector('button').focus();
+      if (e.key === 'ArrowRight') {
+        newIndex = (currentIndex + 1) % buttons.length;
+      } else if (e.key === 'ArrowLeft') {
+        newIndex = (currentIndex - 1 + buttons.length) % buttons.length;
       }
+
+      buttons[newIndex]?.shadowRoot?.querySelector('button')?.focus();
     }
   }
 
@@ -196,13 +196,13 @@ export class GcdsExtCodeDisplay {
     this.setDisplay(this.display);
 
     if (this.attributeObject || this.slotObject || this.eventObject || this.accessibility) {
-      this.el.shadowRoot.querySelectorAll('div[role="tablist"] gcds-button').forEach(button => {
-        button.shadowRoot.querySelector('button').setAttribute('role', 'tab');
+      this.el.shadowRoot?.querySelectorAll('div[role="tablist"] gcds-button').forEach(button => {
+        button.shadowRoot?.querySelector('button')?.setAttribute('role', 'tab');
 
         if (button.id === this.display) {
-          button.shadowRoot.querySelector('button').setAttribute('aria-selected', 'true');
+          button.shadowRoot?.querySelector('button')?.setAttribute('aria-selected', 'true');
         } else {
-          button.shadowRoot.querySelector('button').setAttribute('aria-selected', 'false');
+          button.shadowRoot?.querySelector('button')?.setAttribute('aria-selected', 'false');
         }
       });
     }
@@ -214,11 +214,15 @@ export class GcdsExtCodeDisplay {
 
   // Add slot content to the component display
   private renderSlotContent() {
-    this.template.children[0].replaceChildren();
+    const templateChild = this.template?.children[0];
 
-    Object.values(this.slotHistory).forEach(content => {
-      this.template.children[0].insertAdjacentHTML('beforeend', content);
-    });
+    if (templateChild) {
+      templateChild.replaceChildren();
+
+      Object.values(this.slotHistory).forEach(content => {
+        templateChild.insertAdjacentHTML('beforeend', content);
+      });
+    }
 
     this.updateLiveElement();
   }
@@ -231,24 +235,37 @@ export class GcdsExtCodeDisplay {
   // Updates the live element by inserting new one from template
   private updateLiveElement() {
     this.el.replaceChildren();
-    this.el.appendChild(this.template.children[0].cloneNode(true));
+
+    const templateChild = this.template?.children[0];
+
+    if (templateChild) {
+      this.el.appendChild(templateChild.cloneNode(true));
+    }
   }
 
   private setDisplay(tab: typeof this.display) {
     this.display = tab;
 
-    this.el.shadowRoot.querySelectorAll('div[role="tablist"] gcds-button').forEach(button => {
+    const shadowRoot = this.el.shadowRoot;
+
+    if (!shadowRoot) {
+      return;
+    }
+
+    shadowRoot.querySelectorAll('div[role="tablist"] gcds-button').forEach(button => {
+      const buttonElement = button.shadowRoot?.querySelector('button');
+
       if (button.id === tab) {
-        button.shadowRoot.querySelector('button').setAttribute('aria-selected', 'true');
+        buttonElement?.setAttribute('aria-selected', 'true');
       } else {
-        button.shadowRoot.querySelector('button').setAttribute('aria-selected', 'false');
+        buttonElement?.setAttribute('aria-selected', 'false');
       }
     });
   }
 
   private updateStatus(type: 'attribute' | 'slot' | 'framework', name: string) {
     setTimeout(() => {
-      const statusEl = this.el.shadowRoot.getElementById('change-status');
+      const statusEl = this.el?.shadowRoot?.getElementById('change-status');
       if (statusEl) {
         if (type === 'attribute') {
           statusEl.textContent = i18n[this.lang].attributeUpdateStatus.replaceAll('{name}', name);
@@ -313,14 +330,23 @@ export class GcdsExtCodeDisplay {
             </div>
 
             {this.attributeObject && (
-              <attribute-tab displayElement={this.displayElement} attributeObject={this.attributeObject} class={this.display != 'attrs' && 'hidden'}></attribute-tab>
+              <attribute-tab
+                displayElement={this.displayElement as Element}
+                attributeObject={this.attributeObject}
+                class={this.display != 'attrs' ? 'hidden' : undefined}
+              ></attribute-tab>
             )}
 
             {this.slotObject && (
-              <slots-tab displayElement={this.displayElement} slotObject={this.slotObject} slotHistory={this.slotHistory} class={this.display != 'slots' && 'hidden'}></slots-tab>
+              <slots-tab
+                displayElement={this.displayElement as Element}
+                slotObject={this.slotObject}
+                slotHistory={this.slotHistory}
+                class={this.display != 'slots' ? 'hidden' : undefined}
+              ></slots-tab>
             )}
 
-            {this.eventObject && <events-tab eventObject={this.eventObject} class={this.display != 'events' && 'hidden'}></events-tab>}
+            {this.eventObject && <events-tab eventObject={this.eventObject} class={this.display != 'events' ? 'hidden' : undefined}></events-tab>}
 
             {this.accessibility && (
               <accessibility-tab
