@@ -21,11 +21,21 @@
 
       <!-- <gcds-heading tag="h2">Button</gcds-heading> -->
 
-      <!-- <gcds-heading tag="h3">Only code display</gcds-heading> -->
+      <gcds-heading tag="h3">Only code display</gcds-heading>
 
-      <!-- <gcds-ext-code-display class="mt-300" framework="react" accessibility id="button-display" lang="en">
+      <gcds-ext-code-display class="mt-300" lang="en">
+        <gcds-checkboxes
+          legend="Legend"
+          name="checkexample"
+          options='[{"id": "form-check-1", "label": "Label", "hint": "Description or example to make the option clearer.", "value": "check1"}, {"id": "form-check-2", "label": "Label", "hint": "Description or example to make the option clearer.", "value": "check2"}]'
+          required
+        >
+        </gcds-checkboxes>
+      </gcds-ext-code-display>
+
+      <gcds-ext-code-display class="mt-300" framework="react" lang="en">
         <gcds-button button-role="danger">Danger</gcds-button>
-      </gcds-ext-code-display> -->
+      </gcds-ext-code-display>
 
       <gcds-heading tag="h3">With tabs</gcds-heading>
 
@@ -52,40 +62,6 @@
           </gcds-breadcrumbs>
         </gcds-header>
       </gcds-ext-code-display>
-
-      <!-- <gcds-grid columns="minmax(0, 1fr)" columns-desktop="320px minmax(0, 1fr)" tag="div" container="xl" centered class="xl:px-0 sm:px-600 px-225 general-layout">
-        <div>This is a placeholder, testing how a zoom out view might work since this is how our docs site is configured</div>
-        <div>
-          <gcds-heading tag="h2">Top-nav</gcds-heading>
-
-          <gcds-ext-code-display id="header-display" class="mb-400" accessibility landmark-display>
-            <gcds-header>
-              <gcds-search slot="search"></gcds-search>
-              <gcds-breadcrumbs slot="breadcrumb">
-                <gcds-breadcrumbs-item href="#">Design System</gcds-breadcrumbs-item>
-                <gcds-breadcrumbs-item href="#">Components</gcds-breadcrumbs-item>
-              </gcds-breadcrumbs>
-            </gcds-header>
-          </gcds-ext-code-display>
-
-          <gcds-ext-code-display class="mb-400" accessibility landmark-display>
-            <gcds-top-nav label="Top navigation" alignment="end">
-              <gcds-nav-link href="#home" slot="home">GC Notify</gcds-nav-link>
-              <gcds-nav-link href="#">Why GC Notify</gcds-nav-link>
-              <gcds-nav-link href="#">Why GC Notify</gcds-nav-link>
-
-              <gcds-nav-group open-trigger="Features" menu-label="Features">
-                <gcds-nav-link href="#">Create reusable templates</gcds-nav-link>
-                <gcds-nav-link href="#">Personalize messages</gcds-nav-link>
-                <gcds-nav-link href="#" current>Schedule messages</gcds-nav-link>
-                <gcds-nav-link href="#">Send messages automatically</gcds-nav-link>
-              </gcds-nav-group>
-
-              <gcds-nav-link href="#">Contact us</gcds-nav-link>
-            </gcds-top-nav>
-          </gcds-ext-code-display>
-        </div>
-      </gcds-grid> -->
 
       <script>
         const headerDisplay = document.getElementById('header-display');

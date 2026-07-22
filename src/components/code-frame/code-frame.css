@@ -44,7 +44,7 @@
       }
 
       @media only screen and (width >= 64em) {
-        overflow-x: scroll;
+        overflow-x: auto;
 
         iframe {
           width: var(--gcds-container-size-xl);

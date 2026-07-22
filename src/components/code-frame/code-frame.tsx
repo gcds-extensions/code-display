@@ -3,7 +3,18 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 import prettier from 'prettier/standalone';
 import prettierPluginHTML from 'prettier/plugins/html';
-import { formatSrcDoc, assignLanguage, iframeListeners } from '../../utils/utils';
+import prettierPluginBabel from 'prettier/plugins/babel';
+import prettierPluginEstree from 'prettier/plugins/estree';
+import {
+  formatSrcDoc,
+  assignLanguage,
+  iframeListeners,
+} from '../../utils/utils';
+import {
+  convertToReact,
+  convertToAngular,
+  convertToVue
+} from './utils';
 import i18n from './i18n/i18n';
 
 @Component({
@@ -117,40 +128,6 @@ export class CodeFrame {
    * --------------------------- */
 
   /*
-   * Converts HTML code to React JSX code
-   */
-  private convertToReact(html: string) {
-    const react = html.replace(/"([^"]*)"|(\b[a-z]+(?:-[a-z]+)+\b)/g, (match, quoted, kebab) => {
-      if (quoted) return `"${quoted}"`;
-
-      if (kebab) {
-        return kebab.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
-      }
-
-      return match;
-    });
-
-    const code = react.replace(/<g/g, '<G').replace(/<\/g/g, '</G');
-    const componentName = code.match(/<\w+/);
-
-    if (!componentName) return code;
-
-    const importStatement = `import { ${componentName[0].replace('<', '')} } from '@gcds-core/components-react';\n\n`;
-
-    return importStatement + code;
-  }
-
-  /*
-  * Converts HTML code to Angular code
-  */
-  private convertToAngular(html: string) {
-    return html.replace(
-      /(\s|^)([a-zA-Z_:][-a-zA-Z0-9_:]*)="(true|false)"/gi,
-      '$1[$2]="$3"'
-    );
-  }
-
-  /*
    * Formats the source code and applies syntax highlighting
    */
   private async formatCodePreview() {
@@ -159,16 +136,38 @@ export class CodeFrame {
     const code = await prettier.format(this.source, {
       parser: 'html',
       plugins: [prettierPluginHTML],
-      printWidth: 120,
+      printWidth: 80,
       htmlWhitespaceSensitivity: 'ignore',
       singleQuote: true
     });
 
-    const react = this.convertToReact(code);
-    const angular = this.convertToAngular(code);
+    const react = await prettier.format(convertToReact(code), {
+      parser: 'babel',
+      plugins: [prettierPluginBabel, prettierPluginEstree],
+      printWidth: 80,
+      htmlWhitespaceSensitivity: 'ignore',
+      jsxSingleQuote: false,
+      singleQuote: true
+    });
+
+    const angular = await prettier.format(convertToAngular(code), {
+      parser: 'html',
+      plugins: [prettierPluginHTML],
+      printWidth: 80,
+      htmlWhitespaceSensitivity: 'ignore',
+      singleQuote: true
+    });
+
+    const vue = await prettier.format(convertToVue(code), {
+      parser: 'vue',
+      plugins: [prettierPluginHTML],
+      printWidth: 80,
+      htmlWhitespaceSensitivity: 'ignore',
+      singleQuote: true
+    });
 
     this.htmlCode = Prism.highlight(code, Prism.languages.html, 'html');
-    this.vueCode = Prism.highlight(code, Prism.languages.html, 'html');
+    this.vueCode = Prism.highlight(vue, Prism.languages.html, 'html');
     this.reactCode = Prism.highlight(react, Prism.languages.jsx, 'jsx');
     this.angularCode = Prism.highlight(angular, Prism.languages.html, 'html');
 
@@ -271,6 +270,7 @@ export class CodeFrame {
               title={i18n[lang].componentExample}
               ref={element => (this.landmarkIframe = element as HTMLIFrameElement)}
               style={{ '--component-display-iframe-height': '12rem' }}
+              tabIndex={0}
             />
             :
             <slot></slot>

@@ -1,19 +1,13 @@
-export const assignLanguage = (el: HTMLElement) => {
-  let lang = '';
-  if (!el.getAttribute('lang')) {
-    const closestLangAttribute = closestElement('[lang]', el)?.getAttribute('lang');
-    if (closestLangAttribute == 'en' || !closestLangAttribute) {
-      lang = 'en';
-    } else {
-      lang = 'fr';
-    }
-  } else if (el.getAttribute('lang') == 'en') {
-    lang = 'en';
-  } else {
-    lang = 'fr';
-  }
+/*
+ * Get language to use for component based on the following priority:
+ * 1. lang attribute on component
+ * 2. lang attribute on closest parent with a lang attribute
+ * 3. default to English
+ */
+export const assignLanguage = (el: HTMLElement): string => {
+  const rawLang = el.lang || el.getAttribute('lang') || closestElement('[lang]', el)?.getAttribute('lang') || 'en';
 
-  return lang;
+  return rawLang.toLowerCase().startsWith('fr') ? 'fr' : 'en';
 };
 
 // Allows use of closest() function across shadow boundaries
@@ -153,5 +147,10 @@ export const iframeListeners = (iframe: HTMLIFrameElement) => {
 };
 
 const setIframeHeight = (iframe: HTMLIFrameElement, additional: number = 0) => {
-  iframe.style.setProperty('--component-display-iframe-height', `${iframe.contentDocument.body.getBoundingClientRect().height / 16 + additional + 3}rem`);
+  const doc = iframe.contentDocument;
+  if (!doc?.body) {
+    return;
+  }
+
+  iframe.style.setProperty('--component-display-iframe-height', `${doc.body.getBoundingClientRect().height / 16 + additional + 3}rem`);
 };
