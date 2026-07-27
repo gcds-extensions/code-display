@@ -91,6 +91,10 @@ export class GcdsExtCodeDisplay {
    * Enable accessibility tests using axe-core
    */
   @Prop() accessibility?: boolean = false;
+  @Watch('accessibility')
+  validateAccessibility() {
+    this.display = this.display;
+  }
 
   /*
    * Display landmark elements in iframe
