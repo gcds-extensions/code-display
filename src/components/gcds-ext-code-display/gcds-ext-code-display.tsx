@@ -106,6 +106,11 @@ export class GcdsExtCodeDisplay {
    */
   @Prop() framework?: 'html' | 'react' | 'vue' | 'angular' = 'html';
 
+  /*
+   * Path to gcds package on site
+   */
+  @Prop() gcdsPath?: string = '/components/dist/';
+
   /* ---------------------------
    * State
    * --------------------------- */
@@ -300,7 +305,7 @@ export class GcdsExtCodeDisplay {
     return (
       <Host>
         {/* Component + code preview */}
-        <code-frame source={this.codeSource} landmarkDisplay={this.landmarkDisplay} accessibility={this.accessibility} framework={this.framework} lang={this.lang}>
+        <code-frame source={this.codeSource} landmarkDisplay={this.landmarkDisplay} accessibility={this.accessibility} framework={this.framework} lang={this.lang} gcdsPath={this.gcdsPath}>
           <slot></slot>
         </code-frame>
 

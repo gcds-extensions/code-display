@@ -56,9 +56,9 @@ export const srcDoc = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Landmark Elements</title>
-  <link rel="stylesheet" href="/components/dist/gcds.css" />
-  <script type="module" src="/components/dist/gcds.esm.js"></script>
+  <title>{{iframeTitle}}</title>
+  <link rel="stylesheet" href="{{gcdsPath}}gcds.css" />
+  <script type="module" src="{{gcdsPath}}gcds.esm.js"></script>
   <link
     rel="stylesheet"
     href="https://cdn.design-system.alpha.canada.ca/@gcds-core/css-shortcuts@latest/dist/gcds-css-shortcuts.min.css"
@@ -70,7 +70,7 @@ export const srcDoc = `<!DOCTYPE html>
 </body>
 </html>`;
 
-export const formatSrcDoc = (displayElement: string, accessibility: boolean = false, lang: string = 'en') => {
+export const formatSrcDoc = (displayElement: string, accessibility: boolean = false, gcdsPath: string, lang: string = 'en') => {
   let doc = srcDoc;
   if (accessibility) {
     const axeScript = `<script src="https://cdn.jsdelivr.net/npm/axe-core@4.7.2/axe.min.js"></script>`;
@@ -78,7 +78,9 @@ export const formatSrcDoc = (displayElement: string, accessibility: boolean = fa
   } else {
     doc = doc.replace('{{axeScript}}', '');
   }
+  doc = doc.replaceAll('{{gcdsPath}}', gcdsPath);
   doc = doc.replace('{{lang}}', lang);
+  doc = doc.replace('{{iframeTitle}}', lang === 'en' ? 'Component example' : 'Exemple de composant');
   doc = doc.replace('{{displayElement}}', displayElement);
 
   return doc;

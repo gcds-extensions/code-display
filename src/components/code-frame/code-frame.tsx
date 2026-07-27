@@ -50,6 +50,11 @@ export class CodeFrame {
    */
   @Prop() framework?: 'html' | 'react' | 'vue' | 'angular' = 'html';
 
+  /*
+   * Path to gcds package on site
+   */
+  @Prop() gcdsPath?: string = '/components/dist/';
+
   /* ---------------------------
    * Events
    * --------------------------- */
@@ -80,7 +85,7 @@ export class CodeFrame {
     await this.formatCodePreview();
 
     if (this.landmarkDisplay && this.landmarkIframe) {
-      this.landmarkIframe.srcdoc = formatSrcDoc(this.source, this.accessibility, this.lang);
+      this.landmarkIframe.srcdoc = formatSrcDoc(this.source, this.accessibility, this.gcdsPath as string, this.lang);
     }
   }
 
@@ -107,7 +112,7 @@ export class CodeFrame {
     this.formatCodePreview();
 
     if (this.landmarkDisplay && this.landmarkIframe) {
-      this.landmarkIframe.srcdoc = formatSrcDoc(this.source, this.accessibility, this.lang);
+      this.landmarkIframe.srcdoc = formatSrcDoc(this.source, this.accessibility, this.gcdsPath as string, this.lang);
 
       this.landmarkIframe.onload = () => {
         const intervalId = setInterval(() => {
