@@ -42,7 +42,7 @@ export class AttributeTab {
   private formatEventDetail(e) {
     const eventDetail = {
       name: e.target.name,
-      value: e.target.value,
+      value: e.target.value != 'gcdsSystemRemove' ? e.target.value : 'gcdsSystemRemove',
     };
 
     // Store timestamp and value of element for comparison in interval
@@ -109,6 +109,7 @@ export class AttributeTab {
             onFocus={e => this.onFocusStartInterval(e)}
             onBlur={this.onBlurClearInterval}
           >
+            {!attr.required && attr.defaultValue === 'null' && (<option value="gcdsSystemRemove">null</option>)}
             {typeof options === 'object' &&
               options.map((option: string) => (
                 <option key={option} value={option}>

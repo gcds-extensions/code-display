@@ -122,6 +122,9 @@ export class GcdsExtCodeDisplay {
   attributeChangeListener(e) {
     if (e.target === this.el) {
       this.template?.children[0].setAttribute(e.detail.name, e.detail.value);
+      if (e.detail.value === 'gcdsSystemRemove') {
+        this.template?.children[0].removeAttribute(e.detail.name);
+      }
       this.updateLiveElement();
       this.updateCodePreview();
       this.updateStatus('attribute', e.detail.name);
