@@ -96,6 +96,7 @@ export class AttributeTab {
     if (attr.control === 'select') {
       const options = typeof attr.options === 'string' ? JSON.parse(attr.options) : attr.options;
 
+      // TODO: add a null option to allow no selection of optional fields
       control = (
         <span slot={`cell-${cellCount}-value`}>
           <gcds-select

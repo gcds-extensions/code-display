@@ -1,0 +1,233 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet" />
+
+    <!-- Local components -->
+    <link rel="stylesheet" href="/build/gcds-ext-code-display.css" />
+    <script type="module" src="/build/gcds-ext-code-display.esm.js"></script>
+    <script nomodule src="/build/gcds-ext-code-display.js"></script>
+
+    <!-- GCDS components -->
+    <link rel="stylesheet" href="/components/dist/gcds.css" />
+    <script type="module" src="/components/dist/gcds.esm.js"></script>
+    <script nomodule src="/components/dist/gcds.js"></script>
+  </head>
+
+  <body>
+    <gcds-ext-code-display id="input-display" class="mt-300 mb-700" accessibility>
+      <gcds-input input-id="form-name" label="Name" name="name" hint="Please enter your full name."></gcds-input>
+    </gcds-ext-code-display>
+
+    <script>
+      const gcdsInput = {
+        tag: 'gcds-input',
+        attributes: [
+          {
+            name: 'autocomplete',
+            control: 'text',
+            type: 'string',
+          },
+          {
+            name: 'autofocus',
+            control: 'select',
+            type: 'boolean',
+            options: ['true', 'false'],
+          },
+          {
+            name: 'disabled',
+            control: 'select',
+            type: 'boolean',
+            defaultValue: 'false',
+            options: ['true', 'false'],
+          },
+          {
+            name: 'error-message',
+            control: 'text',
+            type: 'string',
+          },
+          {
+            name: 'form',
+            control: 'text',
+            type: 'string',
+          },
+          {
+            name: 'hide-label',
+            control: 'select',
+            type: 'boolean',
+            defaultValue: 'false',
+            options: ['true', 'false'],
+          },
+          {
+            name: 'hint',
+            control: 'text',
+            type: 'string',
+          },
+          {
+            name: 'input-id',
+            control: 'text',
+            type: 'string',
+            required: true,
+          },
+          {
+            name: 'inputmode',
+            control: 'select',
+            type: '"decimal" | "email" | "none" | "numeric" | "search" | "tel" | "text" | "url"',
+            defaultValue: 'null',
+            options: ['decimal', 'email', 'none', 'numeric', 'search', 'tel', 'text', 'url'],
+          },
+          {
+            name: 'label',
+            control: 'text',
+            type: 'string',
+            required: true,
+          },
+          {
+            name: 'max',
+            control: 'text',
+            type: 'number | string',
+            options: [],
+          },
+          {
+            name: 'maxlength',
+            control: 'text',
+            type: 'number',
+          },
+          {
+            name: 'min',
+            control: 'text',
+            type: 'number | string',
+            options: [],
+          },
+          {
+            name: 'minlength',
+            control: 'text',
+            type: 'number',
+          },
+          {
+            name: 'name',
+            control: 'text',
+            type: 'string',
+            required: true,
+          },
+          {
+            name: 'pattern',
+            control: 'text',
+            type: 'string',
+          },
+          {
+            name: 'readonly',
+            control: 'select',
+            type: 'boolean',
+            options: ['true', 'false'],
+          },
+          {
+            name: 'required',
+            control: 'select',
+            type: 'boolean',
+            defaultValue: 'false',
+            options: ['true', 'false'],
+          },
+          {
+            name: 'size',
+            control: 'text',
+            type: 'number',
+          },
+          {
+            name: 'step',
+            control: 'text',
+            type: '"any" | number',
+            options: ['any'],
+          },
+          {
+            name: 'suggestions',
+            control: 'text',
+            type: 'SuggestionOption[] | string',
+            options: [],
+          },
+          {
+            name: 'type',
+            control: 'select',
+            type: '"email" | "number" | "password" | "search" | "tel" | "text" | "url"',
+            defaultValue: 'text',
+            options: ['email', 'number', 'password', 'search', 'tel', 'text', 'url'],
+          },
+          {
+            name: 'validate-on',
+            control: 'select',
+            type: '"blur" | "other" | "submit"',
+            defaultValue: 'blur',
+            options: ['blur', 'other', 'submit'],
+          },
+          {
+            name: 'validator',
+            control: 'text',
+            type: '(string | ValidatorEntry | Validator<string>)[]',
+            options: [],
+          },
+          {
+            name: 'validity',
+            control: 'text',
+            type: 'ValidityState',
+            onlyProperty: true,
+          },
+          {
+            name: 'value',
+            control: 'text',
+            type: 'string',
+          },
+        ],
+        slots: [],
+        events: [
+          {
+            name: 'gcdsBlur',
+            description: 'Emitted when the input loses focus.',
+            details: 'void',
+          },
+          {
+            name: 'gcdsChange',
+            description: 'Emitted when the input has changed.',
+            details: 'string',
+          },
+          {
+            name: 'gcdsError',
+            description: 'Emitted when the input has a validation error.',
+            details: 'object',
+          },
+          {
+            name: 'gcdsFocus',
+            description: 'Emitted when the input has focus.',
+            details: 'void',
+          },
+          {
+            name: 'gcdsInput',
+            description: 'Emitted when the element has received input.',
+            details: 'string',
+          },
+          {
+            name: 'gcdsSuggestionSelected',
+            description: 'Emitted when a suggestion is selected.',
+            details: 'string',
+          },
+          {
+            name: 'gcdsValid',
+            description: 'Emitted when the input has a validation error.',
+            details: 'object',
+          },
+        ],
+      };
+
+      const inputDisplay = document.getElementById('input-display');
+      inputDisplay.attrs = gcdsInput.attributes;
+      inputDisplay.events = gcdsInput.events;
+    </script>
+  </body>
+</html>

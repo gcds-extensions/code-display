@@ -24,6 +24,7 @@ export const config: Config = {
           src: '../node_modules/@gcds-core/components/dist/gcds',
           dest: 'components/dist',
         },
+        { src: '**/*.e2e.html' },
       ],
     },
   ],
@@ -32,6 +33,9 @@ export const config: Config = {
     experimentalSlotFixes: true,
   },
   testing: {
+    transform: {
+      '^.+\\.(ts|tsx|js|jsx|css)$': '@stencil/core/testing/jest-preprocessor',
+    },
     browserHeadless: 'shell',
   },
   rollupPlugins: {

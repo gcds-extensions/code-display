@@ -154,3 +154,7 @@ const setIframeHeight = (iframe: HTMLIFrameElement, additional: number = 0) => {
 
   iframe.style.setProperty('--component-display-iframe-height', `${doc.body.getBoundingClientRect().height / 16 + additional + 3}rem`);
 };
+
+export const testHTML = `<gcds-ext-code-display lang="en">
+        <gcds-button button-role="danger">Danger</gcds-button>
+      </gcds-ext-code-display>`;
