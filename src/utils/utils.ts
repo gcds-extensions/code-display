@@ -63,6 +63,12 @@ export const srcDoc = `<!DOCTYPE html>
     rel="stylesheet"
     href="https://cdn.design-system.alpha.canada.ca/@gcds-core/css-shortcuts@latest/dist/gcds-css-shortcuts.min.css"
   />
+  <script>
+    navigation.addEventListener('navigate', (event) => {
+      event.preventDefault(); // stop it from actually happening in the iframe
+      window.parent.postMessage({ type: 'navigate', url: event.destination.url }, '*');
+    });
+  </script>
   {{axeScript}}
 </head>
 <body class="p-150">

@@ -106,6 +106,15 @@ export class CodeFrame {
     this.copyLabel = i18n[this.lang].copyLabel;
 
     this.activeFormat = this.framework ?? 'html';
+
+    if (window) {
+      window.addEventListener('message', (e) => {
+        if (e.source !== this.landmarkIframe?.contentWindow) return;
+        if (e.data?.type === 'navigate') {
+          window.location.href = e.data.url;
+        }
+      });
+    }
   }
 
   componentDidLoad() {
