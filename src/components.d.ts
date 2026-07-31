@@ -24,6 +24,11 @@ export namespace Components {
     interface CodeFrame {
         "accessibility"?: boolean;
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
+        "gcdsPath"?: string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "gcds-path"?: string;
         "landmarkDisplay"?: boolean;
         /**
          * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
@@ -39,6 +44,11 @@ export namespace Components {
         "attrs"?: string | Array<AttributesType>;
         "events"?: string | Array<EventType>;
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
+        "gcdsPath"?: string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "gcds-path"?: string;
         "landmarkDisplay"?: boolean;
         /**
          * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
@@ -162,6 +172,11 @@ declare namespace LocalJSX {
     interface CodeFrame {
         "accessibility"?: boolean;
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
+        "gcdsPath"?: string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "gcds-path"?: string;
         "landmarkDisplay"?: boolean;
         /**
          * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
@@ -178,6 +193,11 @@ declare namespace LocalJSX {
         "attrs"?: string | Array<AttributesType>;
         "events"?: string | Array<EventType>;
         "framework"?: 'html' | 'react' | 'vue' | 'angular';
+        "gcdsPath"?: string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "gcds-path"?: string;
         "landmarkDisplay"?: boolean;
         /**
          * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.

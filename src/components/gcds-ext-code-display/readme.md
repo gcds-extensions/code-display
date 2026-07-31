@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property          | Attribute          | Description | Type                                      | Default     |
-| ----------------- | ------------------ | ----------- | ----------------------------------------- | ----------- |
-| `accessibility`   | `accessibility`    |             | `boolean`                                 | `false`     |
-| `attrs`           | `attrs`            |             | `AttributesType[] \| string`              | `undefined` |
-| `events`          | `events`           |             | `EventType[] \| string`                   | `undefined` |
-| `framework`       | `framework`        |             | `"angular" \| "html" \| "react" \| "vue"` | `'html'`    |
-| `landmarkDisplay` | `landmark-display` |             | `boolean`                                 | `false`     |
-| `slots`           | `slots`            |             | `SlotType[] \| string`                    | `undefined` |
+| Property          | Attribute          | Description | Type                                      | Default               |
+| ----------------- | ------------------ | ----------- | ----------------------------------------- | --------------------- |
+| `accessibility`   | `accessibility`    |             | `boolean`                                 | `false`               |
+| `attrs`           | `attrs`            |             | `AttributesType[] \| string`              | `undefined`           |
+| `events`          | `events`           |             | `EventType[] \| string`                   | `undefined`           |
+| `framework`       | `framework`        |             | `"angular" \| "html" \| "react" \| "vue"` | `'html'`              |
+| `gcdsPath`        | `gcds-path`        |             | `string`                                  | `'/components/dist/'` |
+| `landmarkDisplay` | `landmark-display` |             | `boolean`                                 | `false`               |
+| `slots`           | `slots`            |             | `SlotType[] \| string`                    | `undefined`           |
 
 
 ## Dependencies
