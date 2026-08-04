@@ -7,7 +7,7 @@ const I18N = {
   fr: {
     name: "Nom de l'événement",
     description: 'Description',
-    details: 'Details (TODO FR)',
+    details: 'Détails',
   },
 };
 
