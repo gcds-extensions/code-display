@@ -59,3 +59,67 @@ type EventType = {
 The **Accessibility** tab lets users run an isolated accessibility audit of the live component using `axe-core`.
 
 Enable this tab by setting the `accessibility` property.
+
+--------
+
+# Afficheur de code
+
+Le composant `gcds-ext-code-display` offre une façon interactive de présenter et de documenter les composants de Système de design GC. Il affiche un aperçu des composants en temps réel ainsi que son code source, ses attributs, ses emplacements, ses événements et ses renseignements en matière d’accessibilité.
+
+Développé à l’origine comme preuve de concept pour remplacer Storybook sur le [site de documentation de Système de design GC](https://github.com/cds-snc/gcds-docs), ce composant est construit à l’aide de [Système de design GC](https://design-system.canada.ca/en/).
+
+## Fonctionnalités
+
+### Aperçu du code
+
+L’onglet **Aperçu du code** affiche un rendu interactif et en direct du composant à côté de son code source généré. Les utilisateurs et utilisatrices peuvent basculer entre les exemples de code HTML, React, Vue et Angular pour voir la mise en œuvre équivalente pour chaque cadre.
+
+### Attributs
+
+L’onglet **Attributs** affiche un tableau contenant chaque attribut de composant, y compris son nom, son type, sa valeur par défaut et une commande interactive pour modifier le composant actif.
+
+Fournissez des métadonnées d’attribut en utilisant la propriété `attr` comme matrice d’objets avec la structure suivante :
+
+```ts
+type AttributesType = {
+  name: string;
+  control: 'select' | 'text' | 'none';
+  options?: string[];
+  required?: boolean;
+  defaultValue?: string;
+  type?: string;
+};
+```
+
+### Emplacements
+
+L’onglet **Emplacements** affiche un tableau des emplacements disponibles du composant, y compris le nom et la description de chaque emplacement, ainsi qu’une commande interactive pour modifier le rendu HTML dans cet emplacement.
+
+Fournissez des métadonnées d’emplacement en utilisant la propriété `slots` comme matrice d’objets avec la structure suivante :
+
+```ts
+type SlotType = {
+  name: string;
+  description: string;
+};
+```
+
+### Événements
+
+L’onglet **Événements** affiche un tableau des événements du composant, y compris le nom de chaque événement, sa description et les détails de l’événement émis.
+
+Fournissez des métadonnées d’événement en utilisant la propriété `events` comme matrice d’objets avec la structure suivante :
+
+```ts
+type EventType = {
+  name: string;
+  description: string;
+  details: string | object;
+};
+```
+
+### Accessibilité
+
+L’onglet **Accessibilité** permet aux utilisateurs d’exécuter un audit d’accessibilité isolé du composant actif à l’aide de `axe-core`.
+
+Activez cet onglet en définissant la propriété `accessibility`.
