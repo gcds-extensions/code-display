@@ -371,7 +371,7 @@ export class GcdsExtCodeDisplay {
         ) : null}
         {/* Change status */}
         <gcds-sr-only tag="span">
-          <span id="change-status" role="status" aria-atomic="true" aria-relevant="removals"></span>
+          <span id="change-status" role="status" aria-atomic="true"></span>
         </gcds-sr-only>
       </Host>
     );
