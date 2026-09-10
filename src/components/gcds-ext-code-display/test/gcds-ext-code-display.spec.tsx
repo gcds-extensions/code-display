@@ -58,7 +58,7 @@ describe('gcds-ext-code-display', () => {
     expect(page.root).toEqualHtml(`
       <gcds-ext-code-display lang="en">
         <mock:shadow-root>
-          <code-frame framework="html" lang="en" source="<gcds-button button-role=&quot;danger&quot;>Danger</gcds-button>">
+          <code-frame framework="html" gcdspath="/components/dist/" lang="en" source="<gcds-button button-role=&quot;danger&quot;>Danger</gcds-button>">
             <slot></slot>
           </code-frame>
           <gcds-sr-only tag="span">
@@ -81,7 +81,7 @@ describe('gcds-ext-code-display', () => {
     expect(page.root).toEqualHtml(`
       <gcds-ext-code-display lang="en">
         <mock:shadow-root>
-          <code-frame framework="html" lang="en" source="<gcds-button button-role=&quot;danger&quot;>Danger</gcds-button>">
+          <code-frame framework="html" gcdspath="/components/dist/" lang="en" source="<gcds-button button-role=&quot;danger&quot;>Danger</gcds-button>">
             <slot></slot>
           </code-frame>
           <gcds-sr-only tag="span">

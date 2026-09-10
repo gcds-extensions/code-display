@@ -1,6 +1,12 @@
 name: Run Tests
 on:
   workflow_dispatch:
+  # `main` is tested as well as pull requests. Without this the suite only ran on
+  # PR branches, so a commit that landed on `main` outside a PR was never checked:
+  # 499b352 added the gcdsPath attribute hours after the specs were written, broke
+  # two snapshots, and went unnoticed for six weeks because nothing watched `main`.
+  push:
+    branches: [main]
   pull_request:
     types: [opened, reopened, synchronize]
 
