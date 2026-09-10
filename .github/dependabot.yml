@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # Updates pinned GitHub Actions SHAs in this repo.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
