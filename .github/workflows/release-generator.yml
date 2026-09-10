@@ -1,0 +1,28 @@
+name: Release Generator
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-generator-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    uses: gcds-extensions/plugins/.github/workflows/release-generator.yml@17c9d9eb9ebc6f29632a2977eb362573ffec6ec4 # v1
+    permissions:
+      contents: write
+      pull-requests: write
+    secrets:
+      release_app_id: ${{ secrets.GCDS_RELEASE_BOT_APP_ID }}
+      release_app_private_key: ${{ secrets.GCDS_RELEASE_BOT_PRIVATE_KEY }}
+    with:
+      # Empty release-type switches release-please to manifest mode, so it
+      # reads release-please-config.json / .release-please-manifest.json.
+      release-type: ""

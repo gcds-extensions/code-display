@@ -1,0 +1,30 @@
+# npm's Trusted Publisher is registered against THIS filename. Keep it stable.
+
+name: Publish packages
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Existing tag to publish, e.g. v1.2.0
+        required: true
+        type: string
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: publish-${{ inputs.ref || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    uses: gcds-extensions/plugins/.github/workflows/publish.yml@17c9d9eb9ebc6f29632a2977eb362573ffec6ec4 # v1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      ref: ${{ inputs.ref || github.ref_name }}
+      node-version: "24"
