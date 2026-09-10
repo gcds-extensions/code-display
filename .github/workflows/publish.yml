@@ -1,7 +1,6 @@
-name: Publish packages
-
 # npm's Trusted Publisher is registered against THIS filename. Keep it stable.
 
+name: Publish packages
 on:
   workflow_dispatch:
     inputs:
