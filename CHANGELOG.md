@@ -1,18 +1,16 @@
 # Changelog
 
-## [1.0.0](https://github.com/gcds-extensions/code-display/compare/v0.1.0...v1.0.0) (2026-09-15)
+## [1.0.0](https://github.com/gcds-extensions/code-display/compare/v0.1.0...v1.0.0) 
 
 
-### ⚠ BREAKING CHANGES
+### 🚀 GCDS Code Display Plugin v1.0.0 
+Relased on: 2026-09-15
 
-* release v1.0.0
-* release v1.0.0
+The `<gcds-ext-code-display>` plugin component is an interactive way to showcase and document GC Design Components. It renders a live component preview alongside its source code, attributes, slots, events, and accessibility information.
 
-### Features
+For more information and usage, refer to the [README](readme.md).
 
-* release v1.0.0 ([7933b06](https://github.com/gcds-extensions/code-display/commit/7933b0655c89cdca3ce22964bb4f06339f219cab))
-* release v1.0.0 ([85a7dbd](https://github.com/gcds-extensions/code-display/commit/85a7dbdb0c2d7fdee73f2a4c52ceeb7250a785d7))
-
+* Stable release ([7933b06](https://github.com/gcds-extensions/code-display/commit/7933b0655c89cdca3ce22964bb4f06339f219cab))
 ## [0.1.0](https://github.com/gcds-extensions/code-display/compare/v0.0.1...v0.1.0) (2026-09-10)
 
 
