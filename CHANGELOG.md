@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0](https://github.com/gcds-extensions/code-display/compare/v0.1.0...v1.0.0) (2026-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* release v1.0.0
+* release v1.0.0
+
+### Features
+
+* release v1.0.0 ([7933b06](https://github.com/gcds-extensions/code-display/commit/7933b0655c89cdca3ce22964bb4f06339f219cab))
+* release v1.0.0 ([85a7dbd](https://github.com/gcds-extensions/code-display/commit/85a7dbdb0c2d7fdee73f2a4c52ceeb7250a785d7))
+
 ## [0.1.0](https://github.com/gcds-extensions/code-display/compare/v0.0.1...v0.1.0) (2026-09-10)
 
 
