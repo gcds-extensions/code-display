@@ -11,7 +11,9 @@ The `<gcds-ext-code-display>` plugin component is an interactive way to showcase
 For more information and usage, refer to the [README](readme.md).
 
 * Stable release ([7933b06](https://github.com/gcds-extensions/code-display/commit/7933b0655c89cdca3ce22964bb4f06339f219cab))
-## [0.1.0](https://github.com/gcds-extensions/code-display/compare/v0.0.1...v0.1.0) (2026-09-10)
+
+## [0.1.0](https://github.com/gcds-extensions/code-display/compare/v0.0.1...v0.1.0)
+Relased on: 2026-09-10
 
 
 ### Features
