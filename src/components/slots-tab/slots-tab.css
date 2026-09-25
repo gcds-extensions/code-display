@@ -1,3 +1,10 @@
 :host {
   display: block;
+
+  @media only screen and (width > 22.5em) {
+    .slot-textarea {
+      display: block;
+      min-width: 20rem;
+    }
+  }
 }
