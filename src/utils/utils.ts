@@ -65,7 +65,9 @@ export const srcDoc = `<!DOCTYPE html>
   />
   <script>
     navigation.addEventListener('navigate', (event) => {
-      event.preventDefault(); // stop it from actually happening in the iframe
+      if (!event.destination.url.includes('about:srcdoc')) {
+        event.preventDefault(); // stop it from actually happening in the iframe
+      }
       window.parent.postMessage({ type: 'navigate', url: event.destination.url }, '*');
     });
   </script>
