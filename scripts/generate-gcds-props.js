@@ -1,5 +1,5 @@
 // Script to generate component metadata from Stencil JSON output
-// Usage: node scripts/generate-gcds-props.js <path-to-components.json> [output-file]
+// Usage: node scripts/generate-gcds-props.js <path-to-components.json> [output-dir]
 
 import fs from 'fs';
 import path from 'path';
@@ -7,12 +7,12 @@ import path from 'path';
 const [, , inputArg, outputArg] = process.argv;
 
 if (!inputArg) {
-  console.error('Usage: node generate-component-meta.js <path-to-components.json> [output-file]');
+  console.error('Usage: node generate-component-meta.js <path-to-components.json> [output-dir]');
   process.exit(1);
 }
 
 const INPUT = path.resolve(process.cwd(), inputArg);
-const OUTPUT = path.resolve(process.cwd(), outputArg || 'component-meta.js');
+const OUTPUT_DIR = path.resolve(process.cwd(), outputArg || 'component-meta');
 
 if (!fs.existsSync(INPUT)) {
   console.error(`File not found: ${INPUT}`);
@@ -96,10 +96,16 @@ function toExportName(tag) {
   return tag.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 }
 
-let output = `// AUTO-GENERATED — DO NOT EDIT\n\n`;
+// Ensure a clean output directory
+fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
+fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
+const HEADER = `// AUTO-GENERATED — DO NOT EDIT\n\n`;
+const exportNames = [];
 
 for (const component of data.components) {
   const exportName = toExportName(component.tag);
+  exportNames.push(exportName);
 
   const attributes = (component.props || []).map(propToAttribute);
   const slots = (component.slots || []).map(slotToSlotType);
@@ -112,9 +118,22 @@ for (const component of data.components) {
     events,
   };
 
-  output += `export const ${exportName} = ${JSON.stringify(block, null, 2)};\n\n`;
+  const fileContent = `${HEADER}export const ${exportName} = ${JSON.stringify(block, null, 2)};\n`;
+  const filePath = path.join(OUTPUT_DIR, `${exportName}.js`);
+
+  fs.writeFileSync(filePath, fileContent);
+  console.log(`Generated ${filePath}`);
 }
 
-fs.writeFileSync(OUTPUT, output);
+// Barrel file re-exporting every generated const, so consumers can still
+// do `import { gcdsAlert, gcdsButton } from './component-meta/index.js'`
+const indexContent =
+  HEADER +
+  exportNames.map(name => `export * from './${name}.js';`).join('\n') +
+  '\n';
 
-console.log(`Generated ${OUTPUT}`);
+const indexPath = path.join(OUTPUT_DIR, 'index.js');
+fs.writeFileSync(indexPath, indexContent);
+
+console.log(`Generated ${indexPath}`);
+console.log(`Done: ${exportNames.length} component file(s) written to ${OUTPUT_DIR}`);
