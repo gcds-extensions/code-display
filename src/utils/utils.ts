@@ -128,6 +128,12 @@ export const iframeListeners = (iframe: HTMLIFrameElement) => {
           iframe.contentDocument.body.style.height = 'auto';
           setIframeHeight(iframe, additionalHeight / 16);
         }
+      } else if (mutation.target.nodeName == 'BUTTON') {
+        if (mutation.target.getAttribute('aria-expanded') === 'true') {
+          setIframeHeight(iframe, 850 / 16 + 3);
+        } else {
+          setIframeHeight(iframe, 3);
+        }
       }
     }
   };
@@ -135,7 +141,7 @@ export const iframeListeners = (iframe: HTMLIFrameElement) => {
   const observer = new MutationObserver(handleMutations);
 
   // Check for gcds-nav-group inside gcds-top-nav
-  const navGroup = iframe.contentDocument.querySelector('gcds-top-nav > gcds-nav-group');
+  const navGroup = iframe.contentDocument?.querySelector('gcds-top-nav > gcds-nav-group');
 
   if (navGroup) {
     observer.observe(navGroup, {
@@ -145,8 +151,7 @@ export const iframeListeners = (iframe: HTMLIFrameElement) => {
   }
 
   // Mobile top-nav and side-nav
-
-  const nav = iframe.contentDocument.querySelector('gcds-top-nav') || iframe.contentDocument.querySelector('gcds-side-nav');
+  const nav = iframe.contentDocument?.querySelector('gcds-top-nav') || iframe.contentDocument.querySelector('gcds-side-nav');
 
   if (nav) {
     observer.observe(nav.shadowRoot.querySelector('gcds-nav-group.gcds-mobile-nav'), {
@@ -154,7 +159,24 @@ export const iframeListeners = (iframe: HTMLIFrameElement) => {
       attributeFilter: ['open'],
     });
   }
+
+  // theme and topic menu
+  const topicMenu = iframe.contentDocument?.querySelector('gcds-topic-menu');
+
+  if (topicMenu) {
+    let hydratedTopicInterval = setInterval(() => {
+      if (topicMenu.classList.contains('hydrated')) {
+        clearInterval(hydratedTopicInterval);
+        observer.observe(topicMenu.shadowRoot.querySelector('button'), {
+          attributes: true,
+          attributeFilter: ['aria-expanded'],
+        });
+      }
+    }, 100);
+  }
 };
+
+
 
 const setIframeHeight = (iframe: HTMLIFrameElement, additional: number = 0) => {
   const doc = iframe.contentDocument;

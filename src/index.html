@@ -21,6 +21,10 @@
 
       <gcds-heading tag="h3">Only code display</gcds-heading>
 
+      <gcds-ext-code-display landmark-display>
+        <gcds-topic-menu></gcds-topic-menu>
+      </gcds-ext-code-display>
+
       <gcds-ext-code-display class="mt-300" lang="en">
         <gcds-checkboxes
           legend="Legend"
@@ -39,6 +43,10 @@
 
       <gcds-ext-code-display class="mt-300" accessibility id="button-display" lang="fr">
         <gcds-button button-role="start">Start</gcds-button>
+      </gcds-ext-code-display>
+
+      <gcds-ext-code-display class="mt-300" accessibility id="card-display">
+        <gcds-card card-title="Card title link" badge="Tag" href="#" description="Description or supporting text relating to the headline."></gcds-card>
       </gcds-ext-code-display>
 
       <gcds-heading tag="h2">Input</gcds-heading>
@@ -443,6 +451,98 @@
         buttonDisplay.attrs = gcdsButton.attributes;
         buttonDisplay.events = gcdsButton.events;
         buttonDisplay.slots = gcdsButton.slots;
+
+        const gcdsCard = {
+          "tag": "gcds-card",
+          "attributes": [
+            {
+              "name": "badge",
+              "control": "text",
+              "type": "string"
+            },
+            {
+              "name": "card-title",
+              "control": "text",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "card-title-tag",
+              "control": "select",
+              "type": "\"h3\" | \"h4\" | \"h5\" | \"h6\"",
+              "options": [
+                "h3",
+                "h4",
+                "h5",
+                "h6"
+              ]
+            },
+            {
+              "name": "description",
+              "control": "text",
+              "type": "string"
+            },
+            {
+              "name": "href",
+              "control": "text",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "img-alt",
+              "control": "text",
+              "type": "string"
+            },
+            {
+              "name": "img-src",
+              "control": "text",
+              "type": "string"
+            },
+            {
+              "name": "rel",
+              "control": "text",
+              "type": "string"
+            },
+            {
+              "name": "target",
+              "control": "text",
+              "type": "string"
+            }
+          ],
+          "slots": [
+            {
+              "name": "default",
+              "description": "Slot for the card description. Accepts rich text and overwrites the\ndescription prop if used. The description prop is mirrored into this slot for the same\nDOM-text reason when nothing is slotted."
+            },
+            {
+              "name": "title",
+              "description": "Slot for the card title. Accepts rich text, so markup such as\n`<abbr>`, `<em>` or an icon can be used where the card-title prop cannot. Falls back to\nthe card-title prop, which is mirrored into the light DOM so the title text stays\nreadable by DOM-text extraction tools."
+            }
+          ],
+          "events": [
+            {
+              "name": "gcdsBlur",
+              "description": "Emitted when the card loses focus.",
+              "details": "void"
+            },
+            {
+              "name": "gcdsClick",
+              "description": "Emitted when the card has been clicked. Contains the href in the event detail.",
+              "details": "string"
+            },
+            {
+              "name": "gcdsFocus",
+              "description": "Emitted when the card has focus.",
+              "details": "void"
+            }
+          ]
+        };
+
+      const cardDisplay = document.getElementById('card-display');
+        cardDisplay.attrs = gcdsCard.attributes;
+        cardDisplay.events = gcdsCard.events;
+        cardDisplay.slots = gcdsCard.slots;
+
       </script>
     </gcds-container>
   </body>
