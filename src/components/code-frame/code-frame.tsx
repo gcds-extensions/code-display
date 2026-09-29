@@ -111,7 +111,9 @@ export class CodeFrame {
       window.addEventListener('message', (e) => {
         if (e.source !== this.landmarkIframe?.contentWindow) return;
         if (e.data?.type === 'navigate') {
-          window.location.href = e.data.url;
+          if (!e.data.url.includes('about:srcdoc')) {
+            window.location.href = e.data.url;
+          }
         }
       });
     }
