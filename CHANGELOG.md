@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.1](https://github.com/gcds-extensions/code-display/compare/v1.0.0...v1.0.1) (2026-09-29)
+
+
+### Bug Fixes
+
+* Allow gcds-topic-menu to show open state ([7cf4047](https://github.com/gcds-extensions/code-display/commit/7cf4047d8c8dfb6ce7a0d03b177cbd281b733f05))
+* Allow slots textarea to display properly with long descriptions ([6dee779](https://github.com/gcds-extensions/code-display/commit/6dee779551e095de2820c05c2bc30efce69d23e3))
+* display issues ([#23](https://github.com/gcds-extensions/code-display/issues/23)) ([946d5e4](https://github.com/gcds-extensions/code-display/commit/946d5e4c558edea20a3b853321d834301c66d26a))
+* landmark-display mode causing page navigation on attribute change ([506a9db](https://github.com/gcds-extensions/code-display/commit/506a9dbb1e09235660fbace49c9f9c9c15eae7ea))
+* landmark-display mode causing page navigation on attribute change ([#22](https://github.com/gcds-extensions/code-display/issues/22)) ([04d4499](https://github.com/gcds-extensions/code-display/commit/04d449936b33a5ec003cde082e1c6a46dcef1090))
+
 ## [1.0.0](https://github.com/gcds-extensions/code-display/compare/v0.1.0...v1.0.0) 
 
 
