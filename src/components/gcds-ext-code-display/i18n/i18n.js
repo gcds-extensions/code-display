@@ -10,7 +10,7 @@ const I18N = {
   },
   fr: {
     tabsAttributes: 'Attributs',
-    tabsSlots: 'Fentes',
+    tabsSlots: 'Emplacements',
     tabsEvents: 'Événements',
     tabsA11y: 'Accessibilité',
     attributeUpdateStatus: 'L\'attribut "{name}" a été mis à jour dans l\'aperçu du composant.',
