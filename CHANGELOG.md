@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/gcds-extensions/code-display/compare/v1.0.1...v1.0.2) (2026-10-20)
+
+
+### Bug Fixes
+
+* Slot tab label in French ([f1f7066](https://github.com/gcds-extensions/code-display/commit/f1f706617e006b826ab4e53d1fd5bbb8d83fa3cf))
+* Slot tab label in French ([#27](https://github.com/gcds-extensions/code-display/issues/27)) ([959cc88](https://github.com/gcds-extensions/code-display/commit/959cc8896e9fc779cc92af998acb795a5190e100))
+
 ## [1.0.1](https://github.com/gcds-extensions/code-display/compare/v1.0.0...v1.0.1) (2026-09-29)
 
 
