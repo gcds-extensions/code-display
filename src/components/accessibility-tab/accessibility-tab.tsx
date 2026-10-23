@@ -1,6 +1,6 @@
 import { Component, Host, h, State, Element, Prop, Fragment } from '@stencil/core';
 import axe from 'axe-core';
-import axeLocaleFr from 'axe-core/locales/fr.json';
+import { axeLocaleFrCspSafe } from '../../utils/axe-fr';
 
 import { assignLanguage, closestElement } from '../../utils/utils';
 import i18n from './i18n/i18n';
@@ -53,11 +53,11 @@ export class AccessibilityTab {
             closestElement('gcds-ext-code-display', this.el)
               .shadowRoot.querySelector('code-frame')
               .shadowRoot.querySelector('iframe')
-              .contentWindow!.axe.configure({ locale: axeLocaleFr });
+              .contentWindow!.axe.configure({ locale: axeLocaleFrCspSafe });
           } else {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            axe.configure({ locale: axeLocaleFr });
+            axe.configure({ locale: axeLocaleFrCspSafe });
           }
         }
 
