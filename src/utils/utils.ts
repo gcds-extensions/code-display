@@ -81,7 +81,7 @@ export const srcDoc = `<!DOCTYPE html>
 export const formatSrcDoc = (displayElement: string, accessibility: boolean = false, gcdsPath: string, lang: string = 'en') => {
   let doc = srcDoc;
   if (accessibility) {
-    const axeScript = `<script src="https://cdn.jsdelivr.net/npm/axe-core@4.7.2/axe.min.js"></script>`;
+    const axeScript = `<script src="https://cdn.jsdelivr.net/npm/axe-core@4.10.3/axe.min.js"></script>`;
     doc = doc.replace('{{axeScript}}', axeScript);
   } else {
     doc = doc.replace('{{axeScript}}', '');
