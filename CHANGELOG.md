@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/gcds-extensions/code-display/compare/v1.0.2...v1.0.3) (2026-10-26)
+
+
+### Bug Fixes
+
+* a11y axe-core tests in french with CSP ([a3477c8](https://github.com/gcds-extensions/code-display/commit/a3477c846411a491275bf48cc661f8eeff9844c6))
+* accessibility checker fails to run in french on production due to CSP ([#29](https://github.com/gcds-extensions/code-display/issues/29)) ([3994296](https://github.com/gcds-extensions/code-display/commit/3994296836e8619bffed5eba18613d27a221815e))
+
 ## [1.0.2](https://github.com/gcds-extensions/code-display/compare/v1.0.1...v1.0.2) (2026-10-20)
 
 
